@@ -1,0 +1,26 @@
+{
+  "name": "osangMiddleSchool",
+  "displayName": "오상중학교",
+  "expo": {
+    "name": "osang",
+    "slug": "osang",
+    "version": "1.0",
+    "icon": "src/assets/icon.png",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "dev.gangjun.osang1",
+      "versionCode": 1
+    },
+    "ios": {
+      "bundleIdentifier": "dev.gangjun.osang",
+      "buildNumber": "1.0.0"
+    }
+  }
+}
