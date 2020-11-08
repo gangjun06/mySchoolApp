@@ -16,7 +16,7 @@ import {
   InfoCafeteriaScreen,
   InfoScheduleScreen,
   InfoTabBar
-} from '../screens/todo'
+} from '../screens/info'
 import {
   CalendarIcon,
   DoneAllIcon,
@@ -30,8 +30,6 @@ type TodoNavigatorParams = {
 }
 
 type TodoTabsNavigatorParams = {
-  [AppRoute.TODO_IN_PROGRESS]: undefined
-  [AppRoute.TODO_DONE]: undefined
   [AppRoute.INFO_CAFETERIA]: undefined
   [AppRoute.INFO_CALENDER]: undefined
   [AppRoute.INFO_SCHEDULE]: undefined
