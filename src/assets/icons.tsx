@@ -60,3 +60,15 @@ export const SearchIcon = (props): IconElement => (
 export const MoreIcon = (props): IconElement => (
   <Icon {...props} name='more-horizontal-outline' />
 )
+
+export const ListIcon = (props): IconElement => (
+  <Icon {...props} name='list-outline' />
+)
+
+export const BookIcon = (props): IconElement => (
+  <Icon {...props} name='book-outline' />
+)
+
+export const CalendarIcon = (props): IconElement => (
+  <Icon {...props} name='calendar-outline' />
+)

@@ -10,5 +10,9 @@ export enum AppRoute {
   TODO_DETAILS = 'ToDo Details',
   PROFILE = 'Profile',
   MORE = 'More',
-  ABOUT = 'About'
+  ABOUT = 'About',
+  INFO = 'info',
+  INFO_CAFETERIA = 'Info Cafeteria',
+  INFO_SCHEDULE = 'Info Schedule',
+  INFO_CALENDER = 'Info Calender'
 }

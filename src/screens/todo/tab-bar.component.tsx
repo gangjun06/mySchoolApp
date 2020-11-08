@@ -16,7 +16,7 @@ import {
 import { Toolbar, ToolbarMenuItem } from '../../components/toolbar.component'
 import { InfoIcon, LogoutIcon, MenuIcon } from '../../assets/icons'
 
-export const TodoTabBar = (props: TodoScreenProps): SafeAreaLayoutElement => {
+export const InfoTabBar = (props: TodoScreenProps): SafeAreaLayoutElement => {
   const toolbarMenu: ToolbarMenuItem[] = [{ title: 'Plus', icon: InfoIcon }]
 
   const onMenuItemSelect = (index: number): void => {

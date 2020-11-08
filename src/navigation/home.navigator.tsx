@@ -23,13 +23,13 @@ import {
 } from '../assets/icons'
 
 type HomeBottomTabsNavigatorParams = {
-  [AppRoute.TODO]: undefined
+  [AppRoute.INFO]: undefined
   [AppRoute.MORE]: undefined
 }
 
 export type TodoTabNavigationProp = BottomTabNavigationProp<
   HomeBottomTabsNavigatorParams,
-  AppRoute.TODO
+  AppRoute.INFO
 >
 
 export type MoreTabNavigationProp = BottomTabNavigationProp<
@@ -47,9 +47,9 @@ export const HomeNavigator = (): React.ReactElement => (
   // @ts-ignore: `tabBar` also contains a DrawerNavigationProp
   <BottomTab.Navigator tabBar={HomeTabBar}>
     <BottomTab.Screen
-      name={AppRoute.TODO}
+      name={AppRoute.INFO}
       component={TodoNavigator}
-      options={{ title: 'TODO', tabBarIcon: LayoutIcon }}
+      options={{ title: 'Info', tabBarIcon: LayoutIcon }}
     />
     <BottomTab.Screen
       name={AppRoute.MORE}
