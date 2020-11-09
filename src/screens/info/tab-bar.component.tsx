@@ -6,7 +6,7 @@ import {
   TabElement,
   MenuItem
 } from '@ui-kitten/components'
-import { TodoScreenProps } from '../../navigation/todo.navigator'
+import { TodoScreenProps } from '../../navigation/info.navigation'
 import { AppRoute } from '../../navigation/app-routes'
 import {
   SafeAreaLayout,

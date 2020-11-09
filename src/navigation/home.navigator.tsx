@@ -1,16 +1,11 @@
 import React from 'react'
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/core'
 import {
-  createDrawerNavigator,
-  DrawerContentComponentProps,
-  DrawerNavigationProp
-} from '@react-navigation/drawer'
-import {
   BottomTabBarProps,
   BottomTabNavigationProp,
   createBottomTabNavigator
 } from '@react-navigation/bottom-tabs'
-import { TodoNavigator } from './todo.navigator'
+import { TodoNavigator } from './info.navigation'
 import { ProfileNavigator } from './profile.navigator'
 import { AppRoute } from './app-routes'
 import { HomeTabBar } from '../screens/home'

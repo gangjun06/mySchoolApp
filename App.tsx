@@ -11,6 +11,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppNavigator } from './src/navigation/app.navigator'
 import { AppRoute } from './src/navigation/app-routes'
 
+import { Provider } from 'react-redux'
+import { store } from './src/store'
+
 export default (): ReactFragment => {
   const isAuthorized: boolean = true
   return (
@@ -18,22 +21,15 @@ export default (): ReactFragment => {
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={light}>
         <SafeAreaProvider>
-          <NavigationContainer>
-            <AppNavigator
-              initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.AUTH}
-            />
-          </NavigationContainer>
+          <Provider store={store}>
+            <NavigationContainer>
+              <AppNavigator
+                initialRouteName={isAuthorized ? AppRoute.HOME : AppRoute.AUTH}
+              />
+            </NavigationContainer>
+          </Provider>
         </SafeAreaProvider>
       </ApplicationProvider>
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
