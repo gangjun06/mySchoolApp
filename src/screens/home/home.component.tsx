@@ -4,9 +4,7 @@ import { PageWrapper } from '../../components/page-wrapper.component'
 import { DrawerHomeScreenProps } from '../../navigation/home.navigator'
 
 export const HomeScreen = (props): ReactElement => {
-  useEffect(() => {
-    console.log(props.route)
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <PageWrapper text='오상중학교' toggleDrawer={props.navigation.toggleDrawer}>
