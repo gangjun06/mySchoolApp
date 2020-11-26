@@ -31,7 +31,7 @@ export const HomeDrawer = (props: DrawerHomeScreenProps): DrawerElement => {
     return (
       <DrawerItem
         key={index}
-        title={route.name}
+        title={options.title}
         // @ts-ignore
         accessoryLeft={options.drawerIcon}
       />

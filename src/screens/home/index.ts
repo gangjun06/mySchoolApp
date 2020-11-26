@@ -1,1 +1,1 @@
-export { HomeTabBar } from './home-tab-bar.component'
+export { HomeScreen } from './home.component'
