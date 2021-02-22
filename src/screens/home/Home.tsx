@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, Text, Touchable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { AuthContext } from "../../components/AuthProvider";
+import { AuthContext } from "../../components/providers/AuthProvider";
 
 export const HomeScreen: React.FC = () => {
   const { logout } = useContext(AuthContext);

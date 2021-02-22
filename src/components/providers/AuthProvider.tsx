@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User, UserRole, UserStatus } from "../models/User";
+import { User, UserRole, UserStatus } from "../../models/User";
 
 export const AuthContext = React.createContext<{
   user: User | null;
