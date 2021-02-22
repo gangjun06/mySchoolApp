@@ -1,6 +1,7 @@
 import React from "react";
 import {
   KeyboardAvoidingView,
+  Platform,
   StyleProp,
   StyleSheet,
   ViewStyle,
@@ -50,7 +51,11 @@ export const Container: React.FC<ContainerProps> = ({
   }
   if (keyboardAvoid) {
     return (
-      <KeyboardAvoidingView style={style} behavior="padding">
+      <KeyboardAvoidingView
+        style={style}
+        keyboardVerticalOffset={Platform.OS == "ios" ? 10 : 0}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
         <Children />
       </KeyboardAvoidingView>
     );

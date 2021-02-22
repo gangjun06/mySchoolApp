@@ -68,11 +68,7 @@ export const Input = (props: any & TextInput["props"]) => {
 
   const isSecure = toggleSecure ? false : secure;
 
-  const inputStyles = [
-    styles.input,
-    error && { borderColor: theme.colors.accent },
-    style,
-  ];
+  const inputStyles = [styles.input, error && styles.inputError, style];
 
   return (
     <Block flex={false} margin={[theme.sizes.base, 0]}>
@@ -101,7 +97,6 @@ export const Input = (props: any & TextInput["props"]) => {
 
 const styles = StyleSheet.create({
   input: {
-    borderColor: theme.colors.black,
     borderBottomColor: theme.colors.gray2,
     borderBottomWidth: StyleSheet.hairlineWidth,
     fontSize: theme.sizes.font,
@@ -117,5 +112,8 @@ const styles = StyleSheet.create({
     height: theme.sizes.base * 2,
     top: theme.sizes.base,
     right: 0,
+  },
+  inputError: {
+    borderBottomColor: theme.colors.accent,
   },
 });
