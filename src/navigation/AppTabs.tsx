@@ -1,8 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from "./ParamList";
-import { HomeScreen } from "../screens/home/Home";
-import { CommunityScreen } from "../screens/home/Community";
+import { HomeScreen } from "../screens/home/Home/Home";
+import { CommunityScreen } from "../screens/home/Community/Community";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { theme } from "../constants";
 

@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { View, Touchable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Container } from "../../components/containers";
-import { AuthContext } from "../../components/providers/AuthProvider";
+import { Container } from "../../../components/containers";
+import { AuthContext } from "../../../components/providers/AuthProvider";
 
-import { Block, Card, Text } from "../../components/basic";
+import { Block, Card, Text } from "../../../components/basic";
 import { Feather } from "@expo/vector-icons";
-import { theme } from "../../constants";
+import { theme } from "../../../constants";
 
 export const CommunityScreen: React.FC = () => {
   const onPress = (category: string) => {};

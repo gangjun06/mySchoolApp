@@ -2,28 +2,34 @@ import { Feather } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { View, Touchable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Block, Card, Text } from "../../components/basic";
-import { Container } from "../../components/containers";
-import { AuthContext } from "../../components/providers/AuthProvider";
-import { theme } from "../../constants";
+import { Block, Card, Text } from "../../../components/basic";
+import { Container } from "../../../components/containers";
+import { AuthContext } from "../../../components/providers/AuthProvider";
+import { theme } from "../../../constants";
+import { HomeNavProps, HomeParamList } from "../../../navigation/ParamList";
 
-export const HomeScreen: React.FC = () => {
+export const HomeScreen: React.FC<HomeNavProps<"Main">> = ({ navigation }) => {
   const { logout } = useContext(AuthContext);
-  const navPage = (pageName: string) => {};
+  const navPage = (pageName: keyof HomeParamList) => {
+    navigation.push(pageName);
+  };
   return (
     <Container title="홈" scroll padding>
       <Block margin={[theme.sizes.base / 2, 0, 0, 0]}>
         <HomeBlock
           title="오늘의 급식"
-          onPress={() => navPage("meal")}
+          onPress={() => navPage("Meal")}
           marginBottom
         ></HomeBlock>
         <HomeBlock
           title="오늘의 시간표"
-          onPress={() => navPage("meal")}
+          onPress={() => navPage("Schedule")}
           marginBottom
         ></HomeBlock>
-        <HomeBlock title="학사일정" onPress={() => navPage("meal")}></HomeBlock>
+        <HomeBlock
+          title="학사일정"
+          onPress={() => navPage("Calendar")}
+        ></HomeBlock>
       </Block>
     </Container>
   );

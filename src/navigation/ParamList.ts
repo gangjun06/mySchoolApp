@@ -25,6 +25,9 @@ export type App<T extends keyof AppParamList> = {
 
 export type HomeParamList = {
   Main: undefined;
+  Meal: undefined;
+  Calendar: undefined;
+  Schedule: undefined;
 };
 
 export type HomeNavProps<T extends keyof HomeParamList> = {
