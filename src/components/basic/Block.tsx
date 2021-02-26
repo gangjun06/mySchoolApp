@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Animated } from "react-native";
+import { StyleSheet, View, Animated, Text } from "react-native";
 
 import { theme } from "../../constants";
 
 export const Block = (props: any) => {
   const {
     margin,
-    flex,
+    flex = true,
     row,
     column,
     center,

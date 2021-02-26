@@ -9,7 +9,7 @@ import {
 import { Block, Button, Input, Text } from "../../components/basic";
 import { Container } from "../../components/containers";
 import { AuthContext } from "../../components/providers/AuthProvider";
-import { AuthNavProps } from "../../navigation/AuthParamList";
+import { AuthNavProps } from "../../navigation/ParamList";
 import { Picker } from "@react-native-picker/picker";
 import { theme } from "../../constants";
 import { Formik } from "formik";

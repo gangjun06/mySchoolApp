@@ -10,12 +10,14 @@ import { Block, Text } from "../../components/basic";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { theme } from "../../constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface ContainerProps {
   centerItem?: boolean;
   keyboardAvoid?: boolean;
   scroll?: boolean;
   title?: string | null;
+  padding?: boolean;
 }
 
 export const Container: React.FC<ContainerProps> = ({
@@ -23,10 +25,13 @@ export const Container: React.FC<ContainerProps> = ({
   keyboardAvoid = false,
   scroll = false,
   title = null,
+  padding = false,
   children,
 }) => {
   const style: StyleProp<ViewStyle> = [
+    styles.container,
     centerItem && styles.center,
+    padding && { paddingTop: theme.sizes.base * 2 },
     { backgroundColor: "#ffffff" },
   ];
 
@@ -38,7 +43,12 @@ export const Container: React.FC<ContainerProps> = ({
             {title}
           </Text>
         )}
-        <Block middle={centerItem ? true : false}>{children}</Block>
+        <Block
+          padding={[theme.sizes.base * 1.5, 0]}
+          middle={centerItem ? true : false}
+        >
+          {children}
+        </Block>
       </Block>
     );
   };
@@ -62,15 +72,18 @@ export const Container: React.FC<ContainerProps> = ({
   }
 
   return (
-    <Block style={style}>
+    <SafeAreaView style={style}>
       <Children />
-    </Block>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  center: {
+  container: {
     flex: 1,
+    backgroundColor: "#ffffff",
+  },
+  center: {
     justifyContent: "center",
   },
 });
