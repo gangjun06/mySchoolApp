@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
 import { Container } from "../../../components/containers";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { Block, Text } from "../../../components/basic";
+import { Block, Card, Loading, Text } from "../../../components/basic";
 import { theme } from "../../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { format, addDays, subDays } from "date-fns";
+import { useQuery } from "react-apollo";
+import {
+  GetSchoolMealReq,
+  GET_SCHOOLMEAL,
+  GetSchoolMealRes,
+} from "../../../graphql/queries";
+import { SchoolMealType } from "../../../models";
+import Empty from "../../../../assets/images/empty.svg";
+import { MealCard } from "../../../components/etc/MealCard";
+
+const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
 export const MealScreen = () => {
   const [isPickerVisible, setePickerVisible] = useState<boolean>(false);
   const [date, setDate] = useState<Date>(new Date());
-  const [mealData, setMealData] = useState<null>(null);
 
   const dateAdd = () => setDate(addDays(date, 1));
   const dateSub = () => setDate(subDays(date, 1));
@@ -22,8 +33,6 @@ export const MealScreen = () => {
     setDate(date);
     hideDatePicker();
   };
-
-  useEffect(() => {}, [date]);
 
   return (
     <Container>
@@ -38,12 +47,55 @@ export const MealScreen = () => {
           <Feather name="chevron-left" size={24} />
         </TouchableOpacity>
         <TouchableOpacity onPress={showDatePicker}>
-          <Text h3>{format(date, "yyyy/MM/dd")}</Text>
+          <Text h3>
+            {format(date, "M월 d일") + " "}({dayOfWeek[date.getDay()]}요일)
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={dateAdd} style={{ padding: 5 }}>
           <Feather name="chevron-right" size={24} />
         </TouchableOpacity>
       </Block>
+      <MealContent date={date} />
     </Container>
+  );
+};
+
+const MealContent = ({ date }: { date: Date }) => {
+  const { loading, error, data } = useQuery<GetSchoolMealRes, GetSchoolMealReq>(
+    GET_SCHOOLMEAL,
+    {
+      variables: {
+        date: date.toISOString(),
+      },
+    }
+  );
+  if (loading)
+    return (
+      <Block flex center centerV>
+        <Loading />
+      </Block>
+    );
+  if (error)
+    return (
+      <Block flex center centerV>
+        <Text>로딩중 에러가 발생하였습니다</Text>
+      </Block>
+    );
+  if (data && data.schoolMeal.length < 1)
+    return (
+      <Block flex center centerV>
+        <Empty width={200} height={200} />
+        <Text title bold>
+          데이터가 존재하지 않습니다
+        </Text>
+      </Block>
+    );
+
+  return (
+    <Block margin={[theme.sizes.base * 2, 0, 0, 0]}>
+      {data?.schoolMeal.map((d, index) => (
+        <MealCard data={d} key={index} mt={index === 0} />
+      ))}
+    </Block>
   );
 };
