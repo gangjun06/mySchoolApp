@@ -16,6 +16,7 @@ import {
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { theme } from "../../../constants";
 import { User, UserRole, UserStatus } from "../../../models/User";
+import { openWeb } from "../../../utils/web";
 
 export const SettingScreen: React.FC = () => {
   const [editing, setEditing] = useState<string>("");
@@ -28,16 +29,6 @@ export const SettingScreen: React.FC = () => {
 
   const [a, setA] = useState<boolean>(true);
   const [b, setB] = useState<boolean>(false);
-
-  const openWeb = (url: string) => {
-    Linking.canOpenURL(url).then((supported) => {
-      if (supported) {
-        Linking.openURL(url);
-      } else {
-        console.log("Don't know how to open URI: " + url);
-      }
-    });
-  };
 
   const renderNameEdit = () => {
     if (editing === "name") {
