@@ -43,3 +43,13 @@ export type CommunityNavProps<T extends keyof CommunityParamList> = {
   navigation: StackNavigationProp<CommunityParamList, T>;
   route: RouteProp<CommunityParamList, T>;
 };
+
+export type EtcParamList = {
+  Etc: undefined;
+  Settings: undefined;
+};
+
+export type EtcNavProps<T extends keyof EtcParamList> = {
+  navigation: StackNavigationProp<EtcParamList, T>;
+  route: RouteProp<EtcParamList, T>;
+};

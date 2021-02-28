@@ -9,6 +9,9 @@ import { theme } from "../constants";
 import { Text } from "../components/basic";
 import { HomeStack } from "./HomeStack";
 import { CommunityStack } from "./CommunityStack";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { EtcScreen } from "../screens/home/Etc/Etc";
+import { EtceStack } from "./EtcStack";
 
 interface AppTabsProps {}
 
@@ -17,7 +20,7 @@ const Tabs = createBottomTabNavigator<AppParamList>();
 export const AppTabs: React.FC<AppTabsProps> = ({}) => {
   return (
     <Tabs.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route, navigation }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: typeof Feather["prototype"]["name"] = "help-circle";
 
@@ -25,18 +28,14 @@ export const AppTabs: React.FC<AppTabsProps> = ({}) => {
           else if (route.name === "Community") iconName = "edit";
           else if (route.name === "Etc") iconName = "list";
 
-          return <Feather name={iconName} size={size} color={color} />;
-        },
-        tabBarLabel: ({ focused, color }) => {
-          let labelName: string = route.name;
-          if (route.name === "Home") labelName = "홈";
-          else if (route.name === "Community") labelName = "커뮤니티";
-          else if (route.name === "Etc") labelName = "전체";
           return (
-            <Text style={{ fontSize: theme.sizes.caption, color }}>
-              {labelName}
-            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
+              <Feather name={iconName} size={size} color={color} />
+            </TouchableOpacity>
           );
+        },
+        tabBarLabel: () => {
+          return;
         },
       })}
       tabBarOptions={{
@@ -46,7 +45,7 @@ export const AppTabs: React.FC<AppTabsProps> = ({}) => {
     >
       <Tabs.Screen name="Home" component={HomeStack} />
       <Tabs.Screen name="Community" component={CommunityStack} />
-      <Tabs.Screen name="Etc" component={HomeScreen} />
+      <Tabs.Screen name="Etc" component={EtceStack} />
     </Tabs.Navigator>
   );
 };

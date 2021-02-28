@@ -18,6 +18,7 @@ interface ContainerProps {
   scroll?: boolean;
   title?: string | null;
   padding?: boolean;
+  rightItem?: React.ReactElement;
 }
 
 export const Container: React.FC<ContainerProps> = ({
@@ -26,6 +27,7 @@ export const Container: React.FC<ContainerProps> = ({
   scroll = false,
   title = null,
   padding = false,
+  rightItem = <></>,
   children,
 }) => {
   const style: StyleProp<ViewStyle> = [
@@ -37,13 +39,18 @@ export const Container: React.FC<ContainerProps> = ({
 
   const Children = () => {
     return (
-      <Block padding={[0, theme.sizes.base * 2]}>
+      <Block flex padding={[0, theme.sizes.base * 2]}>
         {title && (
-          <Text h1 bold>
-            {title}
-          </Text>
+          <Block flex={false} space="between" row center>
+            <Text h1 bold>
+              {title}
+            </Text>
+            {rightItem}
+          </Block>
         )}
+
         <Block
+          flex
           padding={[theme.sizes.base * 1.5, 0]}
           middle={centerItem ? true : false}
         >

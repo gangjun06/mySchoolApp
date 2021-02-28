@@ -7,8 +7,6 @@ import { Block, Card, Text } from "../basic";
 export const MealCard = ({ data, mt }: { data: SchoolMeal; mt: boolean }) => (
   <Card shadow row margin={[mt ? 0 : theme.sizes.base * 1.5, 0, 0, 0]}>
     <Block
-      flex={false}
-      column
       style={{ borderRadius: "100%", alignSelf: "baseline" }}
       color={
         data.type === SchoolMealType.BREAKFAST
@@ -31,8 +29,8 @@ export const MealCard = ({ data, mt }: { data: SchoolMeal; mt: boolean }) => (
         color={theme.colors.white}
       />
     </Block>
-    <Block margin={[0, 0, 0, 8]} column>
-      <Block row flex={false} space="between" margin={[0, 0, 3, 0]}>
+    <Block margin={[0, 0, 0, 8]} column flex>
+      <Block row space="between" margin={[0, 0, 3, 0]}>
         <Text h3 bold>
           {data.type === SchoolMealType.BREAKFAST
             ? "아침"

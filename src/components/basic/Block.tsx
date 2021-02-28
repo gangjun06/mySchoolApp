@@ -6,7 +6,7 @@ import { theme } from "../../constants";
 export const Block = (props: any) => {
   const {
     margin,
-    flex = true,
+    flex,
     row,
     column,
     center,
@@ -27,6 +27,7 @@ export const Block = (props: any) => {
     children,
     ...otherProps
   } = props;
+
   const handleMargins = () => {
     if (typeof margin === "number") {
       return {
@@ -119,8 +120,9 @@ export const Block = (props: any) => {
 
   const blockStyles = [
     styles.block,
-    flex && { flex },
-    flex === false && { flex: 0 }, // reset / disable flex
+    // flex && { flex },
+    flex === true && { flex: 1 },
+    flex === false && { flex: 0 },
     row && styles.row,
     column && styles.column,
     center && styles.center,
@@ -160,7 +162,7 @@ export const Block = (props: any) => {
 
 export const styles = StyleSheet.create({
   block: {
-    flex: 1,
+    // flex: 1,
   },
   row: {
     flexDirection: "row",
