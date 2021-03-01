@@ -71,19 +71,19 @@ const MealContent = ({ date }: { date: Date }) => {
   );
   if (loading)
     return (
-      <Block flex center centerV>
+      <Block flex center middle>
         <Loading />
       </Block>
     );
   if (error)
     return (
-      <Block flex center centerV>
+      <Block flex center middle>
         <Text>로딩중 에러가 발생하였습니다</Text>
       </Block>
     );
   if (data && data.schoolMeal.length < 1)
     return (
-      <Block flex center centerV>
+      <Block flex center middle>
         <Empty width={200} height={200} />
         <Text title bold>
           데이터가 존재하지 않습니다

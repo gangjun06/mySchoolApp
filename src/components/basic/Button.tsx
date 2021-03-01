@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "../../constants";
 
@@ -10,6 +10,8 @@ export const Button = (props: any & TouchableOpacity["props"]) => {
     gradient,
     color,
     startColor,
+    loading = false,
+    absolute,
     endColor,
     end,
     start,
@@ -20,6 +22,7 @@ export const Button = (props: any & TouchableOpacity["props"]) => {
   } = props;
   const buttonStyles = [
     styles.button,
+    absolute && styles.absolute,
     shadow && styles.shadow,
     //@ts-ignore
     color && styles[color], // predefined styles colors for backgroundColor
@@ -42,7 +45,11 @@ export const Button = (props: any & TouchableOpacity["props"]) => {
           style={buttonStyles}
           colors={[startColor, endColor]}
         >
-          {children}
+          {loading ? (
+            <ActivityIndicator size="small" color="white" />
+          ) : (
+            children
+          )}
         </LinearGradient>
       </TouchableOpacity>
     );
@@ -54,7 +61,7 @@ export const Button = (props: any & TouchableOpacity["props"]) => {
       activeOpacity={opacity || 0.8}
       {...otherProps}
     >
-      {children}
+      {loading ? <ActivityIndicator size="small" color="white" /> : children}
     </TouchableOpacity>
   );
 };
@@ -81,6 +88,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
+  },
+  absolute: {
+    position: "absolute",
+    zIndex: -1,
+    bottom: -30,
+    left: 0,
+    right: 0,
   },
   accent: { backgroundColor: theme.colors.accent },
   primary: { backgroundColor: theme.colors.primary },

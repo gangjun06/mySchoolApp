@@ -19,7 +19,8 @@ import { User, UserRole, UserStatus } from "../../../models/User";
 import { openWeb } from "../../../utils/web";
 
 export const SettingScreen: React.FC = () => {
-  const [editing, setEditing] = useState<string>("");
+  const { logout } = useContext(AuthContext);
+
   const [user, setUser] = useState<User>({
     name: "",
     nickname: "",
@@ -28,7 +29,6 @@ export const SettingScreen: React.FC = () => {
   });
 
   const [a, setA] = useState<boolean>(true);
-  const [b, setB] = useState<boolean>(false);
 
   const renderNameEdit = () => {
     if (editing === "name") {
@@ -91,7 +91,7 @@ export const SettingScreen: React.FC = () => {
           오픈소스 라이선스
         </Text>
       </Button>
-      <Button shadow onPress={() => {}}>
+      <Button shadow onPress={logout}>
         <Text center semibold>
           로그아웃
         </Text>

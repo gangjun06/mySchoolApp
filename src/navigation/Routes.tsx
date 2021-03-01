@@ -16,7 +16,7 @@ import { AuthNavProps, AuthParamList } from "./ParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../components/providers/AuthProvider";
 import { AppTabs } from "./AppTabs";
-import { SignUpScreen } from "../screens/auth/SignUp";
+import { SignUpScreen } from "../screens/auth/SignUp/SignUp";
 import { LoginScreen } from "../screens/auth/Login";
 import { SplashScreen } from "../screens/auth/Splash";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -29,13 +29,13 @@ const Stack = createStackNavigator<AuthParamList>();
 
 export const Routes: React.FC<RoutesProps> = ({}) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const { user, profileByToken } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
 
   useEffect(() => {
     AsyncStorage.getItem("user")
-      .then((userToken) => {
+      .then(async (userToken) => {
         if (userToken) {
-          profileByToken(userToken);
+          await login(userToken);
         }
         setLoading(false);
       })

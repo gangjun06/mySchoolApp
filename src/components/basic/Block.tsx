@@ -10,7 +10,6 @@ export const Block = (props: any) => {
     row,
     column,
     center,
-    centerV,
     middle,
     left,
     right,
@@ -126,7 +125,6 @@ export const Block = (props: any) => {
     row && styles.row,
     column && styles.column,
     center && styles.center,
-    centerV && styles.centerV,
     middle && styles.middle,
     left && styles.left,
     right && styles.right,
@@ -175,9 +173,6 @@ export const styles = StyleSheet.create({
   },
   center: {
     alignItems: "center",
-  },
-  centerV: {
-    justifyContent: "center",
   },
   middle: {
     justifyContent: "center",

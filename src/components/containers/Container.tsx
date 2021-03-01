@@ -17,6 +17,7 @@ interface ContainerProps {
   keyboardAvoid?: boolean;
   scroll?: boolean;
   title?: string | null;
+  subtitle?: string | null;
   padding?: boolean;
   rightItem?: React.ReactElement;
 }
@@ -26,6 +27,7 @@ export const Container: React.FC<ContainerProps> = ({
   keyboardAvoid = false,
   scroll = false,
   title = null,
+  subtitle = null,
   padding = false,
   rightItem = <></>,
   children,
@@ -42,9 +44,16 @@ export const Container: React.FC<ContainerProps> = ({
       <Block flex padding={[0, theme.sizes.base * 2]}>
         {title && (
           <Block flex={false} space="between" row center>
-            <Text h1 bold>
-              {title}
-            </Text>
+            <Block>
+              <Text h1 bold>
+                {title}
+              </Text>
+              {subtitle && (
+                <Block margin={[theme.sizes.base / 2, 0, 0, 0]}>
+                  <Text gray>{subtitle}</Text>
+                </Block>
+              )}
+            </Block>
             {rightItem}
           </Block>
         )}

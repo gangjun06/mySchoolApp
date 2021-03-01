@@ -39,6 +39,7 @@ export const Text = (
     gray2,
     style,
     children,
+    underline,
   }: any,
   props: any
 ) => {
@@ -77,6 +78,7 @@ export const Text = (
     white && styles.white,
     gray && styles.gray,
     gray2 && styles.gray2,
+    underline && styles.underline,
     style, // rewrite predefined styles
   ];
 
@@ -102,6 +104,9 @@ const styles = StyleSheet.create({
   },
   semibold: {
     fontWeight: "500",
+  },
+  underline: {
+    textDecorationLine: "underline",
   },
   medium: {
     fontWeight: "500",

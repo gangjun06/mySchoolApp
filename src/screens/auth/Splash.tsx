@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Block, Text, Button } from "../../components/basic";
 import { theme } from "../../constants";
-import { AuthNavProps } from "../../navigation/AuthParamList";
+import { AuthNavProps } from "../../navigation/ParamList";
 import Img1 from "../../../assets/images/welcome/1.svg";
 import { Container } from "../../components/containers";
 
@@ -20,7 +20,7 @@ export const SplashScreen: React.FC<AuthNavProps<"Splash">> = ({
 }) => {
   return (
     <Container>
-      <Block center bottom flex={0.4}>
+      <Block center bottom margin={[theme.sizes.base, 0, 0, 0]}>
         <Text h2 center bold>
           <Text h1 primary>
             오상중학교
@@ -30,10 +30,10 @@ export const SplashScreen: React.FC<AuthNavProps<"Splash">> = ({
           학교 소식을 누구보다 빠르게 받아보세요
         </Text>
       </Block>
-      <Block center middle>
+      <Block center middle flex>
         <Img1 width={width} height={height / 3} />
       </Block>
-      <Block middle flex={0.5} margin={[0, theme.sizes.base]}>
+      <Block middle margin={[0, theme.sizes.base]}>
         <Button gradient onPress={() => navigation.navigate("Login")}>
           <Text center semibold white>
             로그인
