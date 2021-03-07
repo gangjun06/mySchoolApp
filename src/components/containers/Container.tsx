@@ -19,6 +19,7 @@ interface ContainerProps {
   title?: string | null;
   subtitle?: string | null;
   padding?: boolean;
+  safearea?: boolean;
   rightItem?: React.ReactElement;
 }
 
@@ -29,6 +30,7 @@ export const Container: React.FC<ContainerProps> = ({
   title = null,
   subtitle = null,
   padding = false,
+  safearea = true,
   rightItem = <></>,
   children,
 }) => {
@@ -37,6 +39,7 @@ export const Container: React.FC<ContainerProps> = ({
     centerItem && styles.center,
     padding && { paddingTop: theme.sizes.base * 2 },
     { backgroundColor: "#ffffff" },
+    // { backgroundColor: "#F5F5F8" },
   ];
 
   const Children = () => {
@@ -60,7 +63,12 @@ export const Container: React.FC<ContainerProps> = ({
 
         <Block
           flex
-          padding={[theme.sizes.base * 1.5, 0]}
+          padding={[
+            title ? theme.sizes.base * 1.5 : 0,
+            0,
+            theme.sizes.base * 1.5,
+            0,
+          ]}
           middle={centerItem ? true : false}
         >
           {children}
@@ -86,11 +94,18 @@ export const Container: React.FC<ContainerProps> = ({
       </KeyboardAvoidingView>
     );
   }
+  if (safearea) {
+    return (
+      <SafeAreaView style={style}>
+        <Children />
+      </SafeAreaView>
+    );
+  }
 
   return (
-    <SafeAreaView style={style}>
+    <Block style={style}>
       <Children />
-    </SafeAreaView>
+    </Block>
   );
 };
 

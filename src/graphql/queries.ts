@@ -33,3 +33,52 @@ export const GET_SCHOOLMEAL_VERBOSE = gql`
     }
   }
 `;
+
+export interface GetCalendarReq {
+  year: number;
+  month: number;
+}
+export interface GetCalendarRes {
+  calendar: models.Calendar[];
+}
+
+export const GET_CALENDAR = gql`
+  query GetCalendar($year: Uint!, $month: Uint!) {
+    calendar(filter: { year: $year, month: $month }) {
+      id
+      title
+      description
+      icon
+      day
+    }
+  }
+`;
+
+export interface GetMyProfileRes {
+  myProfile: models.User;
+}
+
+export const GET_MY_PROFILE = gql`
+  query GetMyProfile {
+    myProfile {
+      id
+      name
+      phone
+      detail {
+        __typename
+        ... on StudentProfile {
+          grade
+          class
+          number
+        }
+        ... on TeacherProfile {
+          subject
+        }
+        ... on OfficialsProfile {
+          role
+        }
+      }
+      status
+    }
+  }
+`;

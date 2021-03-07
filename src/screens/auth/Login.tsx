@@ -41,8 +41,8 @@ export const LoginScreen: React.FC<AuthNavProps<"SignUp">> = ({
   const { login } = React.useContext(AuthContext);
   const [loginReq, { loading }] = useMutation<SignInRes, SignInReq>(SIGNIN);
   const initialValue: SigninInput = {
-    phone: "01059008501",
-    password: "Aih143!#06",
+    phone: "",
+    password: "",
   };
   const [errMsg, setErrMsg] = useState<string>("");
 

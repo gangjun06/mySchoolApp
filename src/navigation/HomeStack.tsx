@@ -1,16 +1,10 @@
 import React from "react";
-import { Text } from "react-native";
-import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen } from "../screens/home/Home/Home";
-import { AppParamList, HomeNavProps, HomeParamList } from "./ParamList";
+import { HomeNavProps, HomeParamList } from "./ParamList";
 import { MealScreen } from "../screens/home/Home/Meal";
 import { CalendarScreen } from "../screens/home/Home/Calendar";
 import { ScheduleScreen } from "../screens/home/Home/Schedule";
-import { theme } from "../constants";
-import {
-  getFocusedRouteNameFromRoute,
-  RouteProp,
-} from "@react-navigation/native";
 
 const Stack = createStackNavigator<HomeParamList>();
 
@@ -34,14 +28,14 @@ export const HomeStack: React.FC<any> = ({
       />
       <Stack.Screen
         name="Schedule"
-        component={MealScreen}
+        component={ScheduleScreen}
         options={({ route }) => ({
           headerTitle: "시간표",
         })}
       />
       <Stack.Screen
         name="Calendar"
-        component={MealScreen}
+        component={CalendarScreen}
         options={({ route }) => ({
           headerTitle: "학사일정",
         })}

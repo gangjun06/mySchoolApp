@@ -9,3 +9,7 @@ export const openWeb = (url: string) => {
     }
   });
 };
+
+export const URL_SUPPORT = "https://osang.xyz/support";
+export const URL_PRIVACY = "https://osang.xyz/privacy";
+export const URL_LICENSE = "https://osang.xyz/license/app";

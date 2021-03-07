@@ -106,8 +106,8 @@ export const RoleSection = ({}) => {
         const err = error.graphQLErrors;
         if (err.length > 0) {
           if (err[0].extensions.code === errs.Duplicate)
-            alert("이미 같은 전화번호가 등록되어 있습니다");
-          else alert("알 수 없는 에러가 발생하였습니다");
+            alert("이미 같은 정보가 등록되어 있습니다");
+          else alert("알 수  에러가 발생하였습니다");
         }
       });
   };

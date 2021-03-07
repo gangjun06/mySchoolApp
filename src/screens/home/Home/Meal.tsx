@@ -35,7 +35,7 @@ export const MealScreen = () => {
   };
 
   return (
-    <Container>
+    <Container safearea={false} padding>
       <DateTimePickerModal
         isVisible={isPickerVisible}
         mode="date"

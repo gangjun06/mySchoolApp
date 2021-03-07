@@ -53,7 +53,7 @@ export interface SetProfileOfficialsReq {
 }
 export const SET_PROFILE_OFFICIALS = gql`
   mutation SetProfileOfficials($role: String!) {
-    setProfile(officals: { role: $role, description: "" })
+    setProfile(officials: { role: $role, description: "" })
   }
 `;
 
