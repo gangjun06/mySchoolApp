@@ -5,6 +5,7 @@ import { HomeNavProps, HomeParamList } from "./ParamList";
 import { MealScreen } from "../screens/home/Home/Meal";
 import { CalendarScreen } from "../screens/home/Home/Calendar";
 import { ScheduleScreen } from "../screens/home/Home/Schedule";
+import { BasicHeader } from "./options";
 
 const Stack = createStackNavigator<HomeParamList>();
 
@@ -13,7 +14,7 @@ export const HomeStack: React.FC<any> = ({
   route,
 }: HomeNavProps<"Main">) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={BasicHeader}>
       <Stack.Screen
         name="Main"
         component={HomeScreen}

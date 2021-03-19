@@ -5,7 +5,7 @@ import { SchoolMeal, SchoolMealType } from "../../models";
 import { Block, Card, Text } from "../basic";
 
 export const MealCard = ({ data, mt }: { data: SchoolMeal; mt: boolean }) => (
-  <Card shadow row margin={[mt ? 0 : theme.sizes.base * 1.5, 0, 0, 0]}>
+  <Card shadow row margin={[mt ? theme.sizes.base * 1.5 : 0, 0, 0, 0]}>
     <Block
       style={{ borderRadius: 100, alignSelf: "baseline" }}
       color={

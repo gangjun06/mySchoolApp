@@ -4,12 +4,55 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Container } from "../../../components/containers";
 import { AuthContext } from "../../../components/providers/AuthProvider";
 
-import { Block, Card, Text } from "../../../components/basic";
+import { Block, Card, Loading, Text } from "../../../components/basic";
 import { Feather } from "@expo/vector-icons";
 import { theme } from "../../../constants";
+import { GetCategoriesRes, GET_CATEGORIES } from "../../../graphql/queries";
+import { useQuery } from "react-apollo";
+import { CommunityNavProps } from "../../../navigation/ParamList";
 
-export const CommunityScreen: React.FC = () => {
-  const onPress = (category: string) => {};
+export const CommunityScreen: React.FC<CommunityNavProps<"Community">> = ({
+  navigation,
+}) => {
+  const { user } = useContext(AuthContext);
+  const { loading, error, data } = useQuery<GetCategoriesRes, {}>(
+    GET_CATEGORIES,
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
+  if (loading)
+    return (
+      <Card shadow>
+        <Block flex center centerV>
+          <Loading />
+        </Block>
+      </Card>
+    );
+  if (error)
+    return (
+      <Card shadow>
+        <Block flex={false}>
+          <Text>로딩중 에러가 발생하였습니다</Text>
+        </Block>
+      </Card>
+    );
+  if (data && data.categories.length < 1)
+    return (
+      <Card shadow>
+        <Block flex={false}>
+          <Text body>데이터가 존재하지 않습니다</Text>
+        </Block>
+      </Card>
+    );
+
+  const onPress = (category: string) => {
+    const item = data?.categories.find((d) => d.id === category);
+    if (!item) return;
+    navigation.navigate("List", {
+      category: item,
+    });
+  };
 
   const BuildCard = ({ title, caption, id, ...otherProps }: any) => (
     <TouchableOpacity onPress={() => onPress(id)}>
@@ -37,25 +80,19 @@ export const CommunityScreen: React.FC = () => {
 
   return (
     <Container title="커뮤니티" scroll padding>
-      <BuildCard
-        id="1"
-        title={"학생 청원게시판"}
-        caption={"학교와 관련한 불편한 사항들을 제보하세요"}
-        marginBottom
-      />
-      <BuildDivLine />
-      <BuildCard
-        id="1000"
-        title={"테스트 게시판 1"}
-        caption={"테스트 게시판 1"}
-        marginBottom
-      />
-      <BuildCard
-        id="2000"
-        title={"테스트 게시판 2"}
-        caption={"테스트 게시판 2"}
-        marginBottom
-      />
+      {data?.categories.map((d) => (
+        <>
+          {d.readAbleRole.indexOf(user.role!) !== -1 && (
+            <BuildCard
+              id={d.id}
+              key={d.id}
+              title={d.name}
+              caption={d.description}
+              marginBottom
+            />
+          )}
+        </>
+      ))}
     </Container>
   );
 };

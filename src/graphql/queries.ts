@@ -64,6 +64,7 @@ export const GET_MY_PROFILE = gql`
       id
       name
       phone
+      role
       detail {
         __typename
         ... on StudentProfile {
@@ -79,6 +80,51 @@ export const GET_MY_PROFILE = gql`
         }
       }
       status
+    }
+  }
+`;
+
+export interface GetCategoriesRes {
+  categories: models.Category[];
+}
+
+export const GET_CATEGORIES = gql`
+  query GetCategories {
+    categories {
+      id
+      name
+      description
+      reqPermission
+      anonAble
+      readAbleRole
+      writeAbleRole
+    }
+  }
+`;
+
+export interface GetPostsReq {
+  categoryID: string;
+  offset?: number;
+  limit?: number;
+}
+export interface GetPostsRes {
+  posts: models.Posts[];
+}
+
+export const GET_POSTS = gql`
+  query GetPosts($categoryID: ObjectID!, $offset: Int, $limit: Int) {
+    posts(categoryID: $categoryID, offset: $offset, limit: $limit) {
+      id
+      author {
+        id
+        name
+        detail {
+          __typename
+        }
+      }
+      title
+      createAt
+      updateAt
     }
   }
 `;

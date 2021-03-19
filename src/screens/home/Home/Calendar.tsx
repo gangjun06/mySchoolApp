@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container } from "../../../components/containers";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { Block, Loading, Text } from "../../../components/basic";
+import { Block, Card, Loading, Text } from "../../../components/basic";
 import { theme } from "../../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { format, addMonths } from "date-fns";
@@ -39,17 +39,19 @@ export const CalendarScreen = () => {
         onConfirm={handleConfirmPicker}
         onCancel={hideDatePicker}
       />
-      <Block flex={false} row space="between" center>
-        <TouchableOpacity onPress={dateSub} style={{ padding: 5 }}>
-          <Feather name="chevron-left" size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={showDatePicker}>
-          <Text h3>{format(date, "yyyy년 M월")}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={dateAdd} style={{ padding: 5 }}>
-          <Feather name="chevron-right" size={24} />
-        </TouchableOpacity>
-      </Block>
+      <Card shadow style={{ borderRadius: "60" }}>
+        <Block flex={false} row space="between" center>
+          <TouchableOpacity onPress={dateSub}>
+            <Feather name="chevron-left" size={24} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={showDatePicker}>
+            <Text h3>{format(date, "yyyy년 M월")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={dateAdd}>
+            <Feather name="chevron-right" size={24} />
+          </TouchableOpacity>
+        </Block>
+      </Card>
       <CalendarContent year={date.getFullYear()} month={date.getMonth() + 1} />
     </Container>
   );

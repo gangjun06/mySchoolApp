@@ -29,32 +29,31 @@ export const MealScreen = () => {
   const showDatePicker = () => setePickerVisible(true);
   const hideDatePicker = () => setePickerVisible(false);
 
-  const handleConfirmPicker = (date: Date) => {
-    setDate(date);
-    hideDatePicker();
-  };
+  const handleConfirmPicker = (date: Date) => {};
 
   return (
     <Container safearea={false} padding>
-      <DateTimePickerModal
+      {/* <DateTimePickerModal
         isVisible={isPickerVisible}
         mode="date"
         onConfirm={handleConfirmPicker}
         onCancel={hideDatePicker}
-      />
-      <Block flex={false} row space="between" center>
-        <TouchableOpacity onPress={dateSub} style={{ padding: 5 }}>
-          <Feather name="chevron-left" size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={showDatePicker}>
+      /> */}
+      <Card shadow style={{ borderRadius: "60" }}>
+        <Block flex={false} row space="between" center>
+          <TouchableOpacity onPress={dateSub}>
+            <Feather name="chevron-left" size={24} />
+          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={showDatePicker}> */}
           <Text h3>
             {format(date, "M월 d일") + " "}({dayOfWeek[date.getDay()]}요일)
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={dateAdd} style={{ padding: 5 }}>
-          <Feather name="chevron-right" size={24} />
-        </TouchableOpacity>
-      </Block>
+          {/* </TouchableOpacity> */}
+          <TouchableOpacity onPress={dateAdd}>
+            <Feather name="chevron-right" size={24} />
+          </TouchableOpacity>
+        </Block>
+      </Card>
       <MealContent date={date} />
     </Container>
   );
@@ -94,8 +93,11 @@ const MealContent = ({ date }: { date: Date }) => {
   return (
     <Block margin={[theme.sizes.base * 2, 0, 0, 0]}>
       {data?.schoolMeal.map((d, index) => (
-        <MealCard data={d} key={index} mt={index === 0} />
+        <MealCard data={d} key={index} mt={index !== 0} />
       ))}
     </Block>
   );
 };
+function registerLocale(arg0: string, arg1: {}) {
+  throw new Error("Function not implemented.");
+}

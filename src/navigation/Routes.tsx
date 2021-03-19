@@ -16,6 +16,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { GetMyProfileRes, GET_MY_PROFILE } from "../graphql/queries";
 import { useQuery } from "react-apollo";
 import { Block, Text } from "../components/basic";
+import { HeaderWithBack } from "./options";
 
 interface RoutesProps {}
 
@@ -89,34 +90,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
           ) : (
             <Stack.Navigator
               initialRouteName="Splash"
-              screenOptions={{
-                headerLeft: (props) => (
-                  <TouchableOpacity
-                    onPress={() => props.onPress && props.onPress()}
-                  >
-                    <Ionicons name="chevron-back-outline" size={28} />
-                  </TouchableOpacity>
-                ),
-                headerStyle: {
-                  // height: theme.sizes.base * 4,
-                  borderBottomColor: "transparent",
-                  shadowColor: "transparent",
-                  borderBottomWidth: 0,
-                  backgroundColor: "#ffffff",
-                  elevation: 0,
-                },
-                // headerTransparent: true,
-                headerBackTitleVisible: false,
-                headerLeftContainerStyle: {
-                  alignItems: "center",
-                  marginLeft: theme.sizes.base,
-                  paddingRight: theme.sizes.base,
-                },
-                headerRightContainerStyle: {
-                  alignItems: "center",
-                  paddingRight: theme.sizes.base,
-                },
-              }}
+              screenOptions={HeaderWithBack}
             >
               <Stack.Screen
                 name="Splash"

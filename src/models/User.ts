@@ -4,9 +4,9 @@ export enum UserStatus {
   ban = "BAN",
 }
 export enum UserRole {
-  student = "StudentProfile",
-  teacher = "TeacherProfile",
-  officals = "OfficialsProfile",
+  student = "Student",
+  teacher = "Teacher",
+  officals = "Officials",
 }
 
 export type User = {

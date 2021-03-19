@@ -16,7 +16,12 @@ import {
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { theme } from "../../../constants";
 import { User, UserRole, UserStatus } from "../../../models/User";
-import { openWeb, URL_LICENSE, URL_PRIVACY } from "../../../utils/web";
+import {
+  openWeb,
+  URL_LICENSE,
+  URL_PRIVACY,
+  URL_SUPPORT,
+} from "../../../utils/web";
 
 export const SettingScreen: React.FC = () => {
   const { logout, user } = useContext(AuthContext);
@@ -54,9 +59,9 @@ export const SettingScreen: React.FC = () => {
         </Block>
       </Block>
 
-      <Divider margin={[theme.sizes.base, 0]} />
+      {/* <Divider margin={[theme.sizes.base, 0]} /> */}
 
-      <Block
+      {/* <Block
         row
         center
         space="between"
@@ -68,7 +73,7 @@ export const SettingScreen: React.FC = () => {
       <Block row center space="between">
         <Text gray2>기타 알림</Text>
         <Switch value={true} onValueChange={onChangeNotifiSetting} />
-      </Block>
+      </Block> */}
 
       <Divider margin={[theme.sizes.base, 0]} />
       <Button shadow onPress={() => openWeb(URL_PRIVACY)}>
@@ -79,6 +84,11 @@ export const SettingScreen: React.FC = () => {
       <Button shadow onPress={() => openWeb(URL_LICENSE)}>
         <Text center semibold>
           오픈소스 라이선스
+        </Text>
+      </Button>
+      <Button shadow onPress={() => openWeb(URL_SUPPORT)}>
+        <Text center semibold>
+          문의하기
         </Text>
       </Button>
       <Button shadow onPress={logout}>

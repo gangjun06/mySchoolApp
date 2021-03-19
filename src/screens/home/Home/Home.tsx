@@ -35,11 +35,12 @@ export const HomeScreen: React.FC<HomeNavProps<"Main">> = ({ navigation }) => {
           title="오늘의 시간표"
           onPress={() => navPage("Schedule")}
           marginBottom
-        ></HomeBlock>
-        <HomeBlock
-          title="학사일정"
-          onPress={() => navPage("Calendar")}
-        ></HomeBlock>
+        >
+          <Schedule />
+        </HomeBlock>
+        <HomeBlock title="학사일정" onPress={() => navPage("Calendar")}>
+          <Calendar />
+        </HomeBlock>
       </Block>
     </Container>
   );
@@ -79,7 +80,7 @@ const HomeBlock: React.FC<HomeBlockProp> = ({
           </Block>
         </TouchableOpacity>
       </Block>
-      <Card shadow>{children}</Card>
+      {children}
     </Block>
   );
 };
@@ -98,28 +99,54 @@ const Meal: React.FC = () => {
   );
   if (loading)
     return (
-      <Block flex center centerV>
-        <Loading />
-      </Block>
+      <Card shadow>
+        <Block flex center centerV>
+          <Loading />
+        </Block>
+      </Card>
     );
   if (error)
     return (
-      <Block flex center centerV>
-        <Text>로딩중 에러가 발생하였습니다</Text>
-      </Block>
+      <Card shadow>
+        <Block flex={false}>
+          <Text>로딩중 에러가 발생하였습니다</Text>
+        </Block>
+      </Card>
     );
   if (data && data.schoolMeal.length < 1)
     return (
-      <Block flex={false}>
-        <Text body>데이터가 존재하지 않습니다</Text>
-      </Block>
+      <Card shadow>
+        <Block flex={false}>
+          <Text body>데이터가 존재하지 않습니다</Text>
+        </Block>
+      </Card>
     );
 
   return (
-    <Block margin={[theme.sizes.base * 2, 0, 0, 0]}>
+    <Block>
       {data?.schoolMeal.map((d, index) => (
-        <MealCard data={d} key={index} mt={index === 0} />
+        <MealCard data={d} key={index} mt={false} />
       ))}
     </Block>
+  );
+};
+
+const Schedule: React.FC = () => {
+  return (
+    <Card shadow>
+      <Block flex={false}>
+        <Text body>시간표는 4월부터 제공될 예정입니다</Text>
+      </Block>
+    </Card>
+  );
+};
+
+const Calendar: React.FC = () => {
+  return (
+    <Card shadow>
+      <Block flex={false}>
+        <Text body>자세히보기를 클릭하여 확인하세요</Text>
+      </Block>
+    </Card>
   );
 };

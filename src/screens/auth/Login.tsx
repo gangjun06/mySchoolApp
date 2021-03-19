@@ -63,7 +63,6 @@ export const LoginScreen: React.FC<AuthNavProps<"SignUp">> = ({
       })
       .catch((error) => {
         const err = error.graphQLErrors;
-        alert(err[0].extensions.code);
         if (err.length > 0) {
           if (err[0].extensions.code === errs.NotFound)
             setErrMsg("등록되지 않은 전화번호입니다");

@@ -1,5 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Category } from "../models";
 
 export type AuthParamList = {
   Splash: undefined;
@@ -37,6 +38,9 @@ export type HomeNavProps<T extends keyof HomeParamList> = {
 
 export type CommunityParamList = {
   Community: undefined;
+  List: {
+    category: Category;
+  };
 };
 
 export type CommunityNavProps<T extends keyof CommunityParamList> = {

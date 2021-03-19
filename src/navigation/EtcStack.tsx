@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { EtcParamList, HomeNavProps } from "./ParamList";
 import { EtcScreen } from "../screens/home/Etc/Etc";
 import { SettingScreen } from "../screens/home/Etc/Settings";
+import { BasicHeader } from "./options";
 const Stack = createStackNavigator<EtcParamList>();
 
 export const EtceStack: React.FC<any> = ({
@@ -10,7 +11,7 @@ export const EtceStack: React.FC<any> = ({
   route,
 }: HomeNavProps<"Main">) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={BasicHeader}>
       <Stack.Screen
         name="Etc"
         component={EtcScreen}

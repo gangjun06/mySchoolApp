@@ -14,6 +14,7 @@ export const Card = (props: props & any) => {
     style,
     children,
     marginBottom,
+    marginTop,
     flex = false,
     ...otherProps
   } = props;
@@ -21,6 +22,7 @@ export const Card = (props: props & any) => {
     styles.card,
     style,
     marginBottom && { marginBottom: theme.sizes.base },
+    marginTop && { marginTop: theme.sizes.base },
   ];
 
   return (
