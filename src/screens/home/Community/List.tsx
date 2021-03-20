@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Container } from "../../../components/containers";
 import { Block, Card, Loading, Text } from "../../../components/basic";
@@ -18,6 +18,7 @@ import {
 import { ko } from "date-fns/locale";
 import { parseTime } from "../../../utils/parse";
 import { theme } from "../../../constants";
+import { Feather } from "@expo/vector-icons";
 
 export const ListScreen: React.FC<CommunityNavProps<"List">> = ({
   navigation,
@@ -36,19 +37,19 @@ export const ListScreen: React.FC<CommunityNavProps<"List">> = ({
     }
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
-      !category.reqPermission &&
-      category.writeAbleRole.find((d) => d === user.role)
+      category.reqPermission.length < 1 &&
+      category.writeAbleRole.includes(user.role!)
     )
       navigation.setOptions({
         headerRight: () => (
           <TouchableOpacity>
-            <Text>글 게시하기</Text>
+            <Feather name="file-plus" size={theme.sizes.base * 1.4} />
           </TouchableOpacity>
         ),
       });
-  }, []);
+  }, [navigation]);
 
   if (loading)
     return (
@@ -72,11 +73,15 @@ export const ListScreen: React.FC<CommunityNavProps<"List">> = ({
       </Block>
     );
 
+  const handleClick = (post: string) => {
+    navigation.push("Detail", { post });
+  };
+
   return (
-    <Container>
+    <Container safearea={false} padding>
       {data &&
         data.posts.map((d, index) => (
-          <TouchableOpacity key={index}>
+          <TouchableOpacity key={index} onPress={() => handleClick(d.id)}>
             <Card shadow marginTop={index !== 0}>
               <Block>
                 <Text bold>{d.title}</Text>
@@ -85,7 +90,10 @@ export const ListScreen: React.FC<CommunityNavProps<"List">> = ({
                     parseTime(d.createAt),
                     subMonths(new Date(), 1)
                   ) === 1
-                    ? format(parseTime(d.createAt), "yyyy년 M월 d일")
+                    ? format(
+                        parseTime(d.createAt),
+                        "yyyy년 M월 d일(H시 m분 s초)"
+                      )
                     : formatDistanceToNow(parseTime(d.createAt), {
                         locale: ko,
                       }) + " 전"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from "./ParamList";
 import { HomeScreen } from "../screens/home/Home/Home";
@@ -22,7 +22,11 @@ import CancelImg from "../../assets/images/cancel.svg";
 import { Dimensions } from "react-native";
 import { Container } from "../components/containers";
 import { openWeb, URL_SUPPORT } from "../utils/web";
-import { ErrorMessage } from "formik";
+import {
+  NavigationContainer,
+  RouteProp,
+  useRoute,
+} from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -145,33 +149,56 @@ const ErrorScreen = () => {
   );
 };
 
-const Navigator = () => (
-  <Tabs.Navigator
-    screenOptions={({ route, navigation }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName: typeof Feather["prototype"]["name"] = "help-circle";
+const HideTabList = ["List", "Detail"];
 
-        if (route.name === "Home") iconName = "home";
-        else if (route.name === "Community") iconName = "edit";
-        else if (route.name === "Etc") iconName = "list";
+const Navigator = () => {
+  return (
+    <NavigationContainer
+      //@ts-ignore
+      theme={{ colors: { background: "white", border: theme.colors.gray2 } }}
+    >
+      <Tabs.Navigator
+        //@ts-ignore
+        screenOptions={({ route, navigation }) => {
+          const { routes, index } = navigation.dangerouslyGetState();
+          const { state: stackState } = routes[index];
+          let tabBarVisible: Boolean = true;
+          if (stackState) {
+            const { routes: stackRoutes, index: stackIndex } = stackState;
+            const activeRoute = stackRoutes[stackIndex];
+            tabBarVisible = !HideTabList.includes(activeRoute.name);
+          }
+          return {
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName: typeof Feather["prototype"]["name"] = "help-circle";
 
-        return (
-          <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
-            <Feather name={iconName} size={size} color={color} />
-          </TouchableOpacity>
-        );
-      },
-      tabBarLabel: () => {
-        return;
-      },
-    })}
-    tabBarOptions={{
-      activeTintColor: theme.colors.primary,
-      inactiveTintColor: theme.colors.gray,
-    }}
-  >
-    <Tabs.Screen name="Home" component={HomeStack} />
-    <Tabs.Screen name="Community" component={CommunityStack} />
-    <Tabs.Screen name="Etc" component={EtceStack} />
-  </Tabs.Navigator>
-);
+              if (route.name === "Home") iconName = "home";
+              else if (route.name === "Community") iconName = "edit";
+              else if (route.name === "Etc") iconName = "list";
+
+              return (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(route.name)}
+                >
+                  <Feather name={iconName} size={size} color={color} />
+                </TouchableOpacity>
+              );
+            },
+            tabBarLabel: () => {
+              return;
+            },
+            tabBarVisible,
+          };
+        }}
+        tabBarOptions={{
+          activeTintColor: theme.colors.primary,
+          inactiveTintColor: theme.colors.gray,
+        }}
+      >
+        <Tabs.Screen name="Home" component={HomeStack} />
+        <Tabs.Screen name="Community" component={CommunityStack} />
+        <Tabs.Screen name="Etc" component={EtceStack} />
+      </Tabs.Navigator>
+    </NavigationContainer>
+  );
+};

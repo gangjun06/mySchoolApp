@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { AuthParamList } from "./ParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../components/providers/AuthProvider";
@@ -29,7 +29,7 @@ const Loading = () => (
 );
 
 const Profile: React.FC = ({ children }) => {
-  const { setUser, isAuth, logout } = useContext(AuthContext);
+  const { setUser, user, isAuth, logout } = useContext(AuthContext);
   if (!isAuth) {
     return <>{children}</>;
   }
@@ -47,7 +47,7 @@ const Profile: React.FC = ({ children }) => {
     if (error) logout();
   }, [error]);
 
-  if (loading) {
+  if (loading || user.name === "") {
     return <Loading />;
   }
   if (error) {
@@ -83,39 +83,37 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
   } else {
     return (
       <Profile>
-        <NavigationContainer>
-          <StatusBar />
-          {user.name !== "" ? (
-            <AppTabs />
-          ) : (
-            <Stack.Navigator
-              initialRouteName="Splash"
-              screenOptions={HeaderWithBack}
-            >
-              <Stack.Screen
-                name="Splash"
-                component={SplashScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{
-                  headerTitle: "",
-                }}
-              />
-              <Stack.Screen
-                name="SignUp"
-                component={SignUpScreen}
-                options={{
-                  headerTitle: "",
-                }}
-              />
-            </Stack.Navigator>
-          )}
-        </NavigationContainer>
+        <StatusBar />
+        {user.name !== "" ? (
+          <AppTabs />
+        ) : (
+          <Stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={HeaderWithBack}
+          >
+            <Stack.Screen
+              name="Splash"
+              component={SplashScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerTitle: "",
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{
+                headerTitle: "",
+              }}
+            />
+          </Stack.Navigator>
+        )}
       </Profile>
     );
   }

@@ -80,9 +80,9 @@ export const CommunityScreen: React.FC<CommunityNavProps<"Community">> = ({
 
   return (
     <Container title="커뮤니티" scroll padding>
-      {data?.categories.map((d) => (
-        <>
-          {d.readAbleRole.indexOf(user.role!) !== -1 && (
+      {data?.categories.map((d) => {
+        if (d.readAbleRole.indexOf(user.role!) !== -1) {
+          return (
             <BuildCard
               id={d.id}
               key={d.id}
@@ -90,9 +90,9 @@ export const CommunityScreen: React.FC<CommunityNavProps<"Community">> = ({
               caption={d.description}
               marginBottom
             />
-          )}
-        </>
-      ))}
+          );
+        }
+      })}
     </Container>
   );
 };

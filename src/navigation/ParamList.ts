@@ -1,3 +1,4 @@
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Category } from "../models";
@@ -19,8 +20,8 @@ export type AppParamList = {
   Etc: undefined;
 };
 
-export type App<T extends keyof AppParamList> = {
-  navigation: StackNavigationProp<AppParamList, T>;
+export type AppNavProps<T extends keyof AppParamList> = {
+  navigation: BottomTabNavigationProp<AppParamList, T>;
   route: RouteProp<AppParamList, T>;
 };
 
@@ -40,6 +41,9 @@ export type CommunityParamList = {
   Community: undefined;
   List: {
     category: Category;
+  };
+  Detail: {
+    post: string;
   };
 };
 

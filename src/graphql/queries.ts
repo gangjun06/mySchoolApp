@@ -128,3 +128,50 @@ export const GET_POSTS = gql`
     }
   }
 `;
+
+export interface GetPostDetailReq {
+  postID: string;
+  commentOffset?: number;
+  commentLimit?: number;
+}
+export interface GetPostDetailRes {
+  post: models.Posts;
+}
+
+export const GET_POST_DETAIL = gql`
+  query GetPostDetail(
+    $postID: ObjectID!
+    $commentOffset: Int
+    $commentLimit: Int
+  ) {
+    post(
+      id: $postID
+      comment: { limit: $commentLimit, offset: $commentOffset }
+    ) {
+      id
+      title
+      like
+      isLike
+      content
+      createAt
+      updateAt
+      status
+      category {
+        id
+        name
+      }
+      comment {
+        id
+        author {
+          id
+          name
+          role
+        }
+        content
+        createAt
+        updateAt
+        status
+      }
+    }
+  }
+`;

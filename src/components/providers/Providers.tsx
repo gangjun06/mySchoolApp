@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import { NavigationContainer } from "@react-navigation/native";
 
 const client = new ApolloClient({
   uri:

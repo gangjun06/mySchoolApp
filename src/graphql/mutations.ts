@@ -105,3 +105,37 @@ export const SIGNIN = gql`
     }
   }
 `;
+
+export interface LikePostReq {
+  postID: string;
+  status: boolean;
+}
+export interface LikePostRes {}
+export const LIKE_POST = gql`
+  mutation LikePost($postID: ObjectID!, $status: Boolean!) {
+    likePost(input: { post: $postID, status: $status })
+  }
+`;
+
+export interface PostCommentAddReq {
+  postID: string;
+  content: string;
+  anon: boolean;
+}
+export interface PostCommentAddRes {}
+export const ADD_COMMENT = gql`
+  mutation AddComment($postID: ObjectID!, $content: String!, $anon: Boolean) {
+    addComment(input: { post: $postID, content: $content, anon: $anon })
+  }
+`;
+
+export interface PostCommentDeleteReq {
+  postID: string;
+  commentID: string;
+}
+export interface PostCommentDeleteRes {}
+export const DELETE_COMMENT = gql`
+  mutation DeleteComment($postID: ObjectID!, $commentID: ObjectID!) {
+    deleteComment(postID: $postID, commentID: $commentID)
+  }
+`;
