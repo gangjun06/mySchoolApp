@@ -22,7 +22,7 @@ export const HomeScreen: React.FC<HomeNavProps<"Main">> = ({ navigation }) => {
     navigation.push(pageName);
   };
   return (
-    <Container title="홈" scroll padding>
+    <Container title="홈" padding>
       <Block margin={[theme.sizes.base / 2, 0, 0, 0]}>
         <HomeBlock
           title="오늘의 급식"

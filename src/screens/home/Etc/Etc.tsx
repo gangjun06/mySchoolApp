@@ -9,6 +9,7 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { theme } from "../../../constants";
 import { EtcNavProps } from "../../../navigation/ParamList";
 import { openWeb } from "../../../utils/web";
+import { HomepageBoardType } from "../../../models";
 
 type etcListType = {
   name: string;
@@ -32,15 +33,43 @@ export const EtcScreen: React.FC<EtcNavProps<"Etc">> = ({ navigation }) => {
         },
         {
           name: "공지사항",
-          action: () => console.log("pressed"),
+          action: () =>
+            navigation.navigate("BoardList", {
+              boardName: "공지사항",
+              board: HomepageBoardType.Notice,
+            }),
         },
         {
           name: "가정통신문",
-          action: () => console.log("pressed"),
+          action: () =>
+            navigation.navigate("BoardList", {
+              boardName: "가정통신문",
+              board: HomepageBoardType.Prints,
+            }),
         },
         {
           name: "행정소식",
-          action: () => console.log("pressed"),
+          action: () =>
+            navigation.navigate("BoardList", {
+              boardName: "행정소식",
+              board: HomepageBoardType.Administration,
+            }),
+        },
+        {
+          name: "평가계획",
+          action: () =>
+            navigation.navigate("BoardList", {
+              boardName: "평가계획",
+              board: HomepageBoardType.EvaluationPlan,
+            }),
+        },
+        {
+          name: "학교규정",
+          action: () =>
+            navigation.navigate("BoardList", {
+              boardName: "학교규정",
+              board: HomepageBoardType.Rule,
+            }),
         },
       ],
     },
@@ -98,7 +127,7 @@ export const EtcScreen: React.FC<EtcNavProps<"Etc">> = ({ navigation }) => {
   );
 
   return (
-    <Container title="기타" scroll padding rightItem={<RightItem />}>
+    <Container title="기타" padding rightItem={<RightItem />}>
       {etcList.map((data, index) => (
         <RenderCategory key={index} data={data} />
       ))}

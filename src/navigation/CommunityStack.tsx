@@ -6,14 +6,10 @@ import {
 import { AppNavProps, AppParamList, CommunityParamList } from "./ParamList";
 import { CommunityScreen } from "../screens/home/Community/Community";
 import { ListScreen } from "../screens/home/Community/List";
+import { WritePostScreen } from "../screens/home/Community/WritePost";
 import { BasicHeader } from "./options";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { PostDetailScreen } from "../screens/home/Community/PostDetail";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { TouchableOpacity, View } from "react-native";
-import { Block, Loading, Text } from "../components/basic";
-import { theme } from "../constants";
-import { Ionicons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator<CommunityParamList>();
 
@@ -41,6 +37,13 @@ export const CommunityStack = ({ navigation }: AppNavProps<"Community">) => {
         component={PostDetailScreen}
         options={({ route }) => ({
           headerTitle: "글 상세 내용",
+        })}
+      />
+      <Stack.Screen
+        name="Write"
+        component={WritePostScreen}
+        options={({ route }) => ({
+          headerTitle: "글 작성하기",
         })}
       />
     </Stack.Navigator>

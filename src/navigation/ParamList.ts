@@ -1,7 +1,7 @@
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Category } from "../models";
+import { Category, HomepageBoardType } from "../models";
 
 export type AuthParamList = {
   Splash: undefined;
@@ -45,6 +45,10 @@ export type CommunityParamList = {
   Detail: {
     post: string;
   };
+  Write: {
+    category: Category;
+    afterWrite: () => void;
+  };
 };
 
 export type CommunityNavProps<T extends keyof CommunityParamList> = {
@@ -55,6 +59,14 @@ export type CommunityNavProps<T extends keyof CommunityParamList> = {
 export type EtcParamList = {
   Etc: undefined;
   Settings: undefined;
+  BoardList: {
+    board: HomepageBoardType;
+    boardName: string;
+  };
+  Detail: {
+    board: HomepageBoardType;
+    id: number;
+  };
 };
 
 export type EtcNavProps<T extends keyof EtcParamList> = {

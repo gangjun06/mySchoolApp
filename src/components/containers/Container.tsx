@@ -11,6 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { theme } from "../../constants";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface ContainerProps {
   centerItem?: boolean;
@@ -21,6 +22,9 @@ interface ContainerProps {
   padding?: boolean;
   safearea?: boolean;
   rightItem?: React.ReactElement;
+  refreshControl?: React.ReactElement;
+  horizontalPadding?: boolean;
+  paddingBottom?: boolean;
 }
 
 export const Container: React.FC<ContainerProps> = ({
@@ -32,6 +36,9 @@ export const Container: React.FC<ContainerProps> = ({
   padding = false,
   safearea = true,
   rightItem = <></>,
+  refreshControl = <></>,
+  horizontalPadding = true,
+  paddingBottom = true,
   children,
 }) => {
   const style: StyleProp<ViewStyle> = [
@@ -44,7 +51,7 @@ export const Container: React.FC<ContainerProps> = ({
 
   const Children = () => {
     return (
-      <Block flex padding={[0, theme.sizes.base * 2]}>
+      <Block flex padding={[0, horizontalPadding ? theme.sizes.base * 2 : 0]}>
         {title && (
           <Block flex={false} space="between" row center>
             <Block>
@@ -66,7 +73,7 @@ export const Container: React.FC<ContainerProps> = ({
           padding={[
             title ? theme.sizes.base * 1.5 : 0,
             0,
-            theme.sizes.base * 1.5,
+            paddingBottom ? theme.sizes.base * 1.5 : 0,
             0,
           ]}
           middle={centerItem ? true : false}
@@ -81,6 +88,13 @@ export const Container: React.FC<ContainerProps> = ({
       <KeyboardAwareScrollView style={style}>
         <Children />
       </KeyboardAwareScrollView>
+    );
+  }
+  if (scroll) {
+    return (
+      <ScrollView style={style} refreshControl={refreshControl}>
+        <Children />
+      </ScrollView>
     );
   }
   if (keyboardAvoid) {

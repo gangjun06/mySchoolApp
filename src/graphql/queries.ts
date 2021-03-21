@@ -1,5 +1,6 @@
 import { gql } from "apollo-boost";
 import * as models from "../models";
+import { HomepageBoardType } from "../models/homepage";
 
 export interface GetSchoolMealReq {
   date: string;
@@ -156,8 +157,7 @@ export const GET_POST_DETAIL = gql`
       createAt
       updateAt
       status
-      category {
-        id
+      author {
         name
       }
       comment {
@@ -171,6 +171,50 @@ export const GET_POST_DETAIL = gql`
         createAt
         updateAt
         status
+      }
+    }
+  }
+`;
+
+export interface GetHomepageListReq {
+  board: models.HomepageBoardType;
+  page: number;
+}
+export interface GetHomepageListRes {
+  homepageList: models.HomepageList[];
+}
+export const GET_HOMEPAGE_LIST = gql`
+  query($board: HomepageBoard!, $page: Uint!) {
+    homepageList(filter: { board: $board, page: $page }) {
+      id
+      number
+      title
+      writtenBy
+      createAt
+    }
+  }
+`;
+export interface GetHomepageDetailReq {
+  board: models.HomepageBoardType;
+  id: number;
+}
+export interface GetHomepageDetailRes {
+  homepageDetail: models.HomepageDetail;
+}
+
+export const GET_HOMEPAGE_DETAIL = gql`
+  query($board: HomepageBoard!, $id: Uint!) {
+    homepageDetail(filter: { board: $board, id: $id }) {
+      id
+      title
+      writtenBy
+      createAt
+      content
+      images
+      files {
+        name
+        download
+        preview
       }
     }
   }

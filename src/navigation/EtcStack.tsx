@@ -4,6 +4,8 @@ import { EtcParamList, HomeNavProps } from "./ParamList";
 import { EtcScreen } from "../screens/home/Etc/Etc";
 import { SettingScreen } from "../screens/home/Etc/Settings";
 import { BasicHeader } from "./options";
+import { BoardListScreen } from "../screens/home/Etc/List";
+import { BoardDetailScreen } from "../screens/home/Etc/BoardDetail";
 const Stack = createStackNavigator<EtcParamList>();
 
 export const EtceStack: React.FC<any> = ({
@@ -22,6 +24,20 @@ export const EtceStack: React.FC<any> = ({
         component={SettingScreen}
         options={({ route }) => ({
           headerTitle: "설정",
+        })}
+      />
+      <Stack.Screen
+        name="BoardList"
+        component={BoardListScreen}
+        options={({ route }) => ({
+          headerTitle: route.params.boardName,
+        })}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={BoardDetailScreen}
+        options={({ route }) => ({
+          headerTitle: "상세보기",
         })}
       />
     </Stack.Navigator>

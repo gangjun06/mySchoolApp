@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Touchable } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Container } from "../../../components/containers";
 import { AuthContext } from "../../../components/providers/AuthProvider";
 
@@ -55,7 +55,7 @@ export const CommunityScreen: React.FC<CommunityNavProps<"Community">> = ({
   };
 
   const BuildCard = ({ title, caption, id, ...otherProps }: any) => (
-    <TouchableOpacity onPress={() => onPress(id)}>
+    <TouchableOpacity onPress={() => onPress(id)} activeOpacity={0.6}>
       <Card shadow {...otherProps} row space="between" center>
         <Block>
           <Text title>{title}</Text>
@@ -79,7 +79,7 @@ export const CommunityScreen: React.FC<CommunityNavProps<"Community">> = ({
   );
 
   return (
-    <Container title="커뮤니티" scroll padding>
+    <Container title="커뮤니티" padding>
       {data?.categories.map((d) => {
         if (d.readAbleRole.indexOf(user.role!) !== -1) {
           return (

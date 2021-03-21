@@ -149,7 +149,7 @@ const ErrorScreen = () => {
   );
 };
 
-const HideTabList = ["List", "Detail"];
+const HideTabList = ["List", "Detail", "Write"];
 
 const Navigator = () => {
   return (

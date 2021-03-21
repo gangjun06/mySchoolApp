@@ -139,3 +139,28 @@ export const DELETE_COMMENT = gql`
     deleteComment(postID: $postID, commentID: $commentID)
   }
 `;
+
+export interface CreatePostReq {
+  categoryID: string;
+  title: string;
+  content: string;
+  anon: boolean;
+}
+export interface CreatePostRes {}
+export const CREATE_POST = gql`
+  mutation CreatePost(
+    $categoryID: ObjectID!
+    $title: String!
+    $content: String!
+    $anon: Boolean!
+  ) {
+    createPost(
+      input: {
+        category: $categoryID
+        title: $title
+        content: $content
+        anon: $anon
+      }
+    )
+  }
+`;

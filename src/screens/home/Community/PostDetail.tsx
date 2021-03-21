@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Alert, RefreshControl, StyleSheet, View } from "react-native";
+import { Alert, RefreshControl, Keyboard, View } from "react-native";
 import BottomSheet, { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { Container } from "../../../components/containers";
 import { Block, Text, Input, Loading } from "../../../components/basic";
@@ -117,8 +117,8 @@ export const PostDetailScreen = ({
       },
     })
       .then((res) => {
+        Keyboard.dismiss();
         formikHelpers.resetForm();
-        formikHelpers.setTouched({ content: false });
         refetchComment();
       })
       .catch((e) => {
@@ -239,6 +239,7 @@ export const PostDetailScreen = ({
           <Text bold h2>
             {data.post.title}
           </Text>
+          <Text>{`작성자: ${data.post.author.name}`}</Text>
           <Text>{`작성일: ${format(
             parseTime(data.post.createAt),
             "yyyy년 M월 d일(H시 m분 s초)"
@@ -289,6 +290,7 @@ export const PostDetailScreen = ({
               initialValues={initialValueComment}
               onSubmit={onSubmitComment}
               validationSchema={CommentFormSchema}
+              validateOnBlur={false}
             >
               {({
                 handleChange,
