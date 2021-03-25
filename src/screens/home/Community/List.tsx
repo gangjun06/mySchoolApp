@@ -49,7 +49,7 @@ export const ListScreen: React.FC<CommunityNavProps<"List">> = ({
       limit: limit,
       offset: 0,
     },
-    // fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
   });
 

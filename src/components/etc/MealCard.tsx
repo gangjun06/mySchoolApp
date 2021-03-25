@@ -41,7 +41,10 @@ export const MealCard = ({ data, mt }: { data: SchoolMeal; mt: boolean }) => (
         <Text>{data.calorie}</Text>
       </Block>
       <Text>
-        {data.content.replace(/<br\/>/gi, ", ").replace(/[\d.]/gi, "")}
+        {data.content
+          .replace(/<br\/>/gi, ", ")
+          .replace(/[\d.]/gi, "")
+          .trim()}
       </Text>
     </Block>
   </Card>

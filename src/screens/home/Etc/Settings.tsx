@@ -27,7 +27,7 @@ export const SettingScreen: React.FC = () => {
   const { logout, user } = useContext(AuthContext);
 
   const userInfoText = () => {
-    switch (user.detail?.__typename) {
+    switch (user.role) {
       case UserRole.student:
         return `${user.detail.grade}학년 ${user.detail.class}반 ${user.detail.number}번`;
       case UserRole.officals:

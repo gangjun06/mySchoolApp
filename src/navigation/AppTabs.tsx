@@ -9,24 +9,16 @@ import { theme } from "../constants";
 import { Block, Button, Text } from "../components/basic";
 import { HomeStack } from "./HomeStack";
 import { CommunityStack } from "./CommunityStack";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { EtcScreen } from "../screens/home/Etc/Etc";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { EtceStack } from "./EtcStack";
 import { AuthContext } from "../components/providers/AuthProvider";
 import { UserStatus } from "../models/User";
-
-import Modal from "react-native-modal";
 
 import ApproveImg from "../../assets/images/approve.svg";
 import CancelImg from "../../assets/images/cancel.svg";
 import { Dimensions } from "react-native";
 import { Container } from "../components/containers";
 import { openWeb, URL_SUPPORT } from "../utils/web";
-import {
-  NavigationContainer,
-  RouteProp,
-  useRoute,
-} from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -153,52 +145,45 @@ const HideTabList = ["List", "Detail", "Write"];
 
 const Navigator = () => {
   return (
-    <NavigationContainer
+    <Tabs.Navigator
       //@ts-ignore
-      theme={{ colors: { background: "white", border: theme.colors.gray2 } }}
+      screenOptions={({ route, navigation }) => {
+        const { routes, index } = navigation.dangerouslyGetState();
+        const { state: stackState } = routes[index];
+        let tabBarVisible: Boolean = true;
+        if (stackState) {
+          const { routes: stackRoutes, index: stackIndex } = stackState;
+          const activeRoute = stackRoutes[stackIndex];
+          tabBarVisible = !HideTabList.includes(activeRoute.name);
+        }
+        return {
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName: typeof Feather["prototype"]["name"] = "help-circle";
+
+            if (route.name === "Home") iconName = "home";
+            else if (route.name === "Community") iconName = "edit";
+            else if (route.name === "Etc") iconName = "list";
+
+            return (
+              <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
+                <Feather name={iconName} size={size} color={color} />
+              </TouchableOpacity>
+            );
+          },
+          tabBarLabel: () => {
+            return;
+          },
+          tabBarVisible,
+        };
+      }}
+      tabBarOptions={{
+        activeTintColor: theme.colors.primary,
+        inactiveTintColor: theme.colors.gray,
+      }}
     >
-      <Tabs.Navigator
-        //@ts-ignore
-        screenOptions={({ route, navigation }) => {
-          const { routes, index } = navigation.dangerouslyGetState();
-          const { state: stackState } = routes[index];
-          let tabBarVisible: Boolean = true;
-          if (stackState) {
-            const { routes: stackRoutes, index: stackIndex } = stackState;
-            const activeRoute = stackRoutes[stackIndex];
-            tabBarVisible = !HideTabList.includes(activeRoute.name);
-          }
-          return {
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName: typeof Feather["prototype"]["name"] = "help-circle";
-
-              if (route.name === "Home") iconName = "home";
-              else if (route.name === "Community") iconName = "edit";
-              else if (route.name === "Etc") iconName = "list";
-
-              return (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(route.name)}
-                >
-                  <Feather name={iconName} size={size} color={color} />
-                </TouchableOpacity>
-              );
-            },
-            tabBarLabel: () => {
-              return;
-            },
-            tabBarVisible,
-          };
-        }}
-        tabBarOptions={{
-          activeTintColor: theme.colors.primary,
-          inactiveTintColor: theme.colors.gray,
-        }}
-      >
-        <Tabs.Screen name="Home" component={HomeStack} />
-        <Tabs.Screen name="Community" component={CommunityStack} />
-        <Tabs.Screen name="Etc" component={EtceStack} />
-      </Tabs.Navigator>
-    </NavigationContainer>
+      <Tabs.Screen name="Home" component={HomeStack} />
+      <Tabs.Screen name="Community" component={CommunityStack} />
+      <Tabs.Screen name="Etc" component={EtceStack} />
+    </Tabs.Navigator>
   );
 };

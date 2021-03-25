@@ -39,7 +39,7 @@ export const MealScreen = () => {
         onConfirm={handleConfirmPicker}
         onCancel={hideDatePicker}
       /> */}
-      <Card shadow style={{ borderRadius: "60" }}>
+      <Card shadow style={{ borderRadius: 60 }}>
         <Block flex={false} row space="between" center>
           <TouchableOpacity onPress={dateSub}>
             <Feather name="chevron-left" size={24} />

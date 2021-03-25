@@ -1,6 +1,6 @@
 import { Formik, FormikHelpers } from "formik";
 import React, { useContext, useState } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   Block,
   Input,
@@ -22,6 +22,7 @@ import {
 } from "../../../graphql/mutations";
 import { SignUpContext } from "./Context";
 import * as errs from "../../../graphql/errors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type StudentForm = {
   name: string;
@@ -198,8 +199,8 @@ const StudentSection = ({
 }) => {
   const initialValueStudent: StudentForm = {
     name: "",
-    grade: "",
-    class: "",
+    grade: "1",
+    class: "1",
     number: "",
   };
   return (
@@ -230,27 +231,27 @@ const StudentSection = ({
             label="학년"
             error={touched.grade && errors.grade}
             items={[
-              { label: "1학년", value: "1" },
-              { label: "2학년", value: "2" },
-              { label: "3학년", value: "3" },
+              { label: "1학년", key: "1" },
+              { label: "2학년", key: "2" },
+              { label: "3학년", key: "3" },
             ]}
-            zIndex={5000}
-            onChangeItem={(value) => setFieldValue("grade", value.value)}
-            placeholder="학년을 선택하여 주세요"
+            onChangeValue={(value) => setFieldValue("grade", value)}
+            description="본인의 학년을 선택하여 주세요"
+            value={values.grade}
           />
           <Dropdown
             label="반"
             error={touched.class && errors.class}
             items={[
-              { label: "인(1반)", value: "1" },
-              { label: "의(2반)", value: "2" },
-              { label: "예(3반)", value: "3" },
-              { label: "지(4반)", value: "4" },
-              { label: "신(5반)", value: "5" },
+              { label: "인(1반)", key: "1" },
+              { label: "의(2반)", key: "2" },
+              { label: "예(3반)", key: "3" },
+              { label: "지(4반)", key: "4" },
+              { label: "신(5반)", key: "5" },
             ]}
-            zIndex={4000}
-            onChangeItem={(value) => setFieldValue("class", value.value)}
-            placeholder="반을 선택하여 주세요"
+            description="본인의 반을 선택하여 주세요"
+            onChangeValue={(value) => setFieldValue("class", value)}
+            value={values.class}
           />
           <Input
             label="번호"

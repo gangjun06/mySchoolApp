@@ -73,24 +73,24 @@ export const EtcScreen: React.FC<EtcNavProps<"Etc">> = ({ navigation }) => {
         },
       ],
     },
-    {
-      name: "계산기",
-      items: [
-        {
-          name: "평균 계산기",
-          action: () => console.log("pressed"),
-        },
-      ],
-    },
-    {
-      name: "기타",
-      items: [
-        {
-          name: "서비스 피드백",
-          action: () => console.log("pressed"),
-        },
-      ],
-    },
+    // {
+    //   name: "계산기",
+    //   items: [
+    //     {
+    //       name: "평균 계산기",
+    //       action: () => console.log("pressed"),
+    //     },
+    //   ],
+    // },
+    // {
+    //   name: "기타",
+    //   items: [
+    //     {
+    //       name: "서비스 피드백",
+    //       action: () => console.log("pressed"),
+    //     },
+    //   ],
+    // },
   ];
 
   const RightItem = () => (

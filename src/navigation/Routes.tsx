@@ -16,7 +16,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { GetMyProfileRes, GET_MY_PROFILE } from "../graphql/queries";
 import { useQuery } from "react-apollo";
 import { Block, Text } from "../components/basic";
-import { HeaderWithBack } from "./options";
+import { BasicHeader } from "./options";
 
 interface RoutesProps {}
 
@@ -30,26 +30,29 @@ const Loading = () => (
 
 const Profile: React.FC = ({ children }) => {
   const { setUser, user, isAuth, logout } = useContext(AuthContext);
-  if (!isAuth) {
-    return <>{children}</>;
-  }
   const { loading, error, data } = useQuery<GetMyProfileRes, {}>(
     GET_MY_PROFILE,
     {
       fetchPolicy: "no-cache",
     }
   );
+
   useEffect(() => {
     if (loading || error || !data) return;
     setUser(data.myProfile);
   }, [data]);
   useEffect(() => {
-    if (error) logout();
+    if (error && !isAuth) logout();
   }, [error]);
+
+  if (!isAuth) {
+    return <>{children}</>;
+  }
 
   if (loading || user.name === "") {
     return <Loading />;
   }
+
   if (error) {
     return (
       <Block flex middle center>
@@ -84,36 +87,44 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     return (
       <Profile>
         <StatusBar />
-        {user.name !== "" ? (
-          <AppTabs />
-        ) : (
-          <Stack.Navigator
-            initialRouteName="Splash"
-            screenOptions={HeaderWithBack}
-          >
-            <Stack.Screen
-              name="Splash"
-              component={SplashScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{
-                headerTitle: "",
-              }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUpScreen}
-              options={{
-                headerTitle: "",
-              }}
-            />
-          </Stack.Navigator>
-        )}
+        <NavigationContainer
+          independent={true}
+          theme={{
+            //@ts-ignore
+            colors: { background: "white", border: theme.colors.gray2 },
+          }}
+        >
+          {user.name !== "" ? (
+            <AppTabs />
+          ) : (
+            <Stack.Navigator
+              initialRouteName="Splash"
+              screenOptions={BasicHeader}
+            >
+              <Stack.Screen
+                name="Splash"
+                component={SplashScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                  headerTitle: "",
+                }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{
+                  headerTitle: "",
+                }}
+              />
+            </Stack.Navigator>
+          )}
+        </NavigationContainer>
       </Profile>
     );
   }

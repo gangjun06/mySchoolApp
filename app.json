@@ -1,31 +1,36 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
-    "version": "1.0.0",
+    "name": "osang",
+    "slug": "osang",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "osang",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splash/splash@2x.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00A64F",
+      "mdpi": "./assets/images/splash/splash.png",
+      "hdpi": "./assets/images/splash/splash@1.5x.png",
+      "xhdpi": "./assets/images/splash/splash@2x.png",
+      "xxhdpi": "./assets/images/splash/splash@2.5x.png",
+      "xxxhdpi": "./assets/images/splash/splash@3x.png"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "dev.gangjun.osang"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#00A64F"
+      },
+      "package": "dev.gangjun.osang1"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

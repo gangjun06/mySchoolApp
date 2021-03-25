@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "../../constants";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const Button = (props: any & TouchableOpacity["props"]) => {
   const {
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
+    elevation: 2,
   },
   absolute: {
     position: "absolute",
