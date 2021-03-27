@@ -40,7 +40,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsAuth(true);
         },
         logout: () => {
-          console.log("signout");
           setUser({ name: "" });
           AsyncStorage.removeItem("user");
           setIsAuth(false);

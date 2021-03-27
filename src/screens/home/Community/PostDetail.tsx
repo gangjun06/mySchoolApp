@@ -122,7 +122,6 @@ export const PostDetailScreen = ({
         refetchComment();
       })
       .catch((e) => {
-        console.log(e);
         alert("에러");
       });
   };
@@ -137,8 +136,6 @@ export const PostDetailScreen = ({
       {
         text: "삭제하기",
         onPress: () => {
-          console.log(route.params.post);
-          console.log(commentID);
           deleteCommentMutation({
             variables: {
               postID: route.params.post,

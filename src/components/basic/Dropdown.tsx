@@ -1,14 +1,17 @@
 import React, { useCallback, useMemo, useRef } from "react";
 import { StyleProp, StyleSheet, ViewStyle } from "react-native";
 import * as Icon from "@expo/vector-icons";
-import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetModal,
+  BottomSheetScrollView,
+  TouchableOpacity,
+} from "@gorhom/bottom-sheet";
 
 import { Text } from "./Text";
 import { Block } from "./Block";
 import { Button } from "./Button";
 import { theme } from "../../constants";
 import { DarkBgBackDrop } from "../bottomSheet/DarkBg";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "./Card";
 
 export type DropdownItem = {
@@ -86,8 +89,21 @@ export const Dropdown = (props: {
       <RenderLabel />
       <Block style={inputStyles}>
         <Text style={[styles.inputText]}>{text}</Text>
+        <Button
+          onPress={() => ref.current.present()}
+          style={{
+            height: theme.sizes.font * 1.5,
+            padding: theme.sizes.base / 4,
+          }}
+        >
+          <Icon.Feather
+            name="chevron-down"
+            color={theme.colors.gray}
+            size={theme.sizes.font * 1.35}
+          />
+        </Button>
       </Block>
-      <RenderRight />
+      {/* <RenderRight /> */}
       {error != null && (
         <>
           <Block flex={false} margin={[4, 0, 0, 0]}>
@@ -107,24 +123,23 @@ export const Dropdown = (props: {
           </Text>
           <Text style={{ marginTop: theme.sizes.base / 2 }}>{description}</Text>
         </Block>
-        <BottomSheetScrollView>
+        <BottomSheetScrollView
+          contentContainerStyle={{ paddingBottom: theme.sizes.base / 4 }}
+        >
           {items.map((d, index) => (
-            <TouchableOpacity
+            <Card
               key={index}
-              activeOpacity={0.6}
-              style={{
-                marginHorizontal: theme.sizes.base,
-              }}
-              onPress={() => handleClick(d.key)}
+              style={[styles.card, d.key === value && styles.selected]}
+              shadow
+              marginTop={true}
             >
-              <Card
-                style={[styles.card, d.key === value && styles.selected]}
-                shadow
-                marginTop={true}
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => handleClick(d.key)}
               >
                 <Text>{d.label}</Text>
-              </Card>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </Card>
           ))}
         </BottomSheetScrollView>
       </BottomSheetModal>
@@ -141,7 +156,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.gray2,
     borderBottomWidth: StyleSheet.hairlineWidth,
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     borderWidth: 0,
     paddingLeft: 0,
     paddingRight: 0,
@@ -162,7 +179,9 @@ const styles = StyleSheet.create({
     top: theme.sizes.base,
     right: 0,
   },
-  card: {},
+  card: {
+    marginHorizontal: theme.sizes.base,
+  },
   selected: {
     borderWidth: 3,
     borderColor: theme.colors.primary,

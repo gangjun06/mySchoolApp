@@ -39,14 +39,12 @@ export const PasswordSection = () => {
       },
     })
       .then(({ data }) => {
-        console.log(data);
         if (!data) return;
         login(data.signUp.token);
       })
       .catch((error) => {
         const err = error.graphQLErrors;
         alert("회원가입중 에러가 발생하였습니다");
-        console.log(err);
       });
   };
   return (

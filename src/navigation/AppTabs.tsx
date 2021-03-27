@@ -167,18 +167,6 @@ const Navigator = () => {
           tabBarVisible = !HideTabList.includes(activeRoute.name);
         }
         return {
-          // tabBarIcon: ({ focused, color, size }) => {
-
-          //   if (route.name === "Home") iconName = "home";
-          //   else if (route.name === "Community") iconName = "edit";
-          //   else if (route.name === "Etc") iconName = "list";
-
-          //   return (
-          //     <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
-          //       <Feather name={iconName} size={size} color={color} />
-          //     </TouchableOpacity>
-          //   );
-          // },
           tabBarLabel: () => {
             return;
           },

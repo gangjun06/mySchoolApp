@@ -45,10 +45,6 @@ const Profile: React.FC = ({ children }) => {
     if (error && isAuth) logout();
   }, [error]);
 
-  if (!isAuth) {
-    return <>{children}</>;
-  }
-
   if (loading || user.name === "") {
     return <Loading />;
   }
@@ -65,7 +61,7 @@ const Profile: React.FC = ({ children }) => {
 
 export const Routes: React.FC<RoutesProps> = ({}) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const { user, login } = useContext(AuthContext);
+  const { user, login, isAuth } = useContext(AuthContext);
 
   useEffect(() => {
     AsyncStorage.getItem("user")
@@ -85,7 +81,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     return <Loading />;
   } else {
     return (
-      <Profile>
+      <>
         <StatusBar />
         <NavigationContainer
           independent={true}
@@ -94,8 +90,10 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             colors: { background: "white", border: theme.colors.gray2 },
           }}
         >
-          {user.name !== "" ? (
-            <AppTabs />
+          {isAuth ? (
+            <Profile>
+              <AppTabs />
+            </Profile>
           ) : (
             <Stack.Navigator
               initialRouteName="Splash"
@@ -125,7 +123,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             </Stack.Navigator>
           )}
         </NavigationContainer>
-      </Profile>
+      </>
     );
   }
 };

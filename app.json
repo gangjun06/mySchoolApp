@@ -30,7 +30,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#00A64F"
       },
-      "package": "dev.gangjun.osang1"
+      "package": "dev.gangjun.osang1",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
