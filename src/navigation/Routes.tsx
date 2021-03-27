@@ -42,7 +42,7 @@ const Profile: React.FC = ({ children }) => {
     setUser(data.myProfile);
   }, [data]);
   useEffect(() => {
-    if (error && !isAuth) logout();
+    if (error && isAuth) logout();
   }, [error]);
 
   if (!isAuth) {

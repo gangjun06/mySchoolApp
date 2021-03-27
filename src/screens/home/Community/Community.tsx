@@ -55,17 +55,23 @@ export const CommunityScreen: React.FC<CommunityNavProps<"Community">> = ({
   };
 
   const BuildCard = ({ title, caption, id, ...otherProps }: any) => (
-    <TouchableOpacity onPress={() => onPress(id)} activeOpacity={0.6}>
-      <Card shadow {...otherProps} row space="between" center>
+    <Card shadow {...otherProps}>
+      <TouchableOpacity onPress={() => onPress(id)} activeOpacity={0.6}>
         <Block>
-          <Text title>{title}</Text>
-          <Text caption color="gray">
-            {caption}
-          </Text>
+          <Block>
+            <Text title>{title}</Text>
+          </Block>
+          <Block row space="between">
+            <Text caption color="gray">
+              {caption}
+              {/* {
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+              } */}
+            </Text>
+          </Block>
         </Block>
-        <Feather name="chevron-right" size={theme.sizes.base * 1.5} />
-      </Card>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Card>
   );
 
   const BuildDivLine = () => (

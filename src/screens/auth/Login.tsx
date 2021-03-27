@@ -74,7 +74,7 @@ export const LoginScreen: React.FC<AuthNavProps<"SignUp">> = ({
   };
 
   return (
-    <Container centerItem keyboardAvoid title="로그인">
+    <Container title="로그인">
       <Formik
         initialValues={initialValue}
         onSubmit={onSubmit}

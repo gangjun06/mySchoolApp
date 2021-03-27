@@ -19,6 +19,7 @@ import CancelImg from "../../assets/images/cancel.svg";
 import { Dimensions } from "react-native";
 import { Container } from "../components/containers";
 import { openWeb, URL_SUPPORT } from "../utils/web";
+import { useRoute } from "@react-navigation/core";
 
 const { width, height } = Dimensions.get("window");
 
@@ -143,6 +144,15 @@ const ErrorScreen = () => {
 
 const HideTabList = ["List", "Detail", "Write"];
 
+const tabBarIcon = ({ size, color, focused }) => {
+  const { name } = useRoute();
+  let icon: typeof Feather["prototype"]["name"] = "help-circle";
+  if (name === "Home") icon = "home";
+  else if (name === "Community") icon = "edit";
+  else if (name === "Etc") icon = "list";
+  return <Feather name={icon} size={size} color={color} />;
+};
+
 const Navigator = () => {
   return (
     <Tabs.Navigator
@@ -157,19 +167,18 @@ const Navigator = () => {
           tabBarVisible = !HideTabList.includes(activeRoute.name);
         }
         return {
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName: typeof Feather["prototype"]["name"] = "help-circle";
+          // tabBarIcon: ({ focused, color, size }) => {
 
-            if (route.name === "Home") iconName = "home";
-            else if (route.name === "Community") iconName = "edit";
-            else if (route.name === "Etc") iconName = "list";
+          //   if (route.name === "Home") iconName = "home";
+          //   else if (route.name === "Community") iconName = "edit";
+          //   else if (route.name === "Etc") iconName = "list";
 
-            return (
-              <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
-                <Feather name={iconName} size={size} color={color} />
-              </TouchableOpacity>
-            );
-          },
+          //   return (
+          //     <TouchableOpacity onPress={() => navigation.navigate(route.name)}>
+          //       <Feather name={iconName} size={size} color={color} />
+          //     </TouchableOpacity>
+          //   );
+          // },
           tabBarLabel: () => {
             return;
           },
@@ -179,11 +188,18 @@ const Navigator = () => {
       tabBarOptions={{
         activeTintColor: theme.colors.primary,
         inactiveTintColor: theme.colors.gray,
+        style: {
+          elevation: 0,
+        },
       }}
     >
-      <Tabs.Screen name="Home" component={HomeStack} />
-      <Tabs.Screen name="Community" component={CommunityStack} />
-      <Tabs.Screen name="Etc" component={EtceStack} />
+      <Tabs.Screen name="Home" component={HomeStack} options={{ tabBarIcon }} />
+      <Tabs.Screen
+        name="Community"
+        component={CommunityStack}
+        options={{ tabBarIcon }}
+      />
+      <Tabs.Screen name="Etc" component={EtceStack} options={{ tabBarIcon }} />
     </Tabs.Navigator>
   );
 };

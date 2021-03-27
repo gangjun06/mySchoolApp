@@ -50,37 +50,39 @@ export const Container: React.FC<ContainerProps> = ({
   ];
 
   const Children = () => {
+    const paddingHorizontal = horizontalPadding ? theme.sizes.base * 2 : 0;
     return (
-      <Block flex padding={[0, horizontalPadding ? theme.sizes.base * 2 : 0]}>
-        {title && (
-          <Block flex={false} space="between" row center>
-            <Block>
-              <Text h1 bold>
-                {title}
-              </Text>
-              {subtitle && (
-                <Block margin={[theme.sizes.base / 2, 0, 0, 0]}>
-                  <Text gray>{subtitle}</Text>
-                </Block>
-              )}
+      <>
+        <Block padding={[0, paddingHorizontal]}>
+          {title && (
+            <Block flex={false} space="between" row center>
+              <Block>
+                <Text h1 bold>
+                  {title}
+                </Text>
+                {subtitle && (
+                  <Block margin={[theme.sizes.base / 2, 0, 0, 0]}>
+                    <Text gray>{subtitle}</Text>
+                  </Block>
+                )}
+              </Block>
+              {rightItem}
             </Block>
-            {rightItem}
-          </Block>
-        )}
-
+          )}
+        </Block>
         <Block
           flex
           padding={[
             title ? theme.sizes.base * 1.5 : 0,
-            0,
+            paddingHorizontal,
             paddingBottom ? theme.sizes.base * 1.5 : 0,
-            0,
+            paddingHorizontal,
           ]}
           middle={centerItem ? true : false}
         >
           {children}
         </Block>
-      </Block>
+      </>
     );
   };
   if (keyboardAvoid && scroll) {
@@ -92,7 +94,7 @@ export const Container: React.FC<ContainerProps> = ({
   }
   if (scroll) {
     return (
-      <ScrollView style={style} refreshControl={refreshControl}>
+      <ScrollView style={style}>
         <Children />
       </ScrollView>
     );

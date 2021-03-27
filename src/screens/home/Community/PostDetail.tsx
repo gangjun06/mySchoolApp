@@ -272,7 +272,18 @@ export const PostDetailScreen = ({
         enableHandlePanningGesture
         enableContentPanningGesture
       >
-        <Block flex padding={[0, theme.sizes.padding]}>
+        <View style={{ zIndex: 99999 }}></View>
+        <Block
+          flex
+          padding={[0, theme.sizes.padding]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            zIndex: 100,
+            backgroundColor: theme.colors.white,
+          }}
+        >
           <Text bold h1>
             댓글
           </Text>

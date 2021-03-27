@@ -6,6 +6,7 @@ import { theme } from "../../constants";
 
 type props = {
   children: React.ReactElement;
+  shadow: boolean;
 };
 
 export const Card = (props: props & any) => {

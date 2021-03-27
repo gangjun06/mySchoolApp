@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { Container } from "../../../components/containers";
-import { Block, Card, Loading, Text } from "../../../components/basic";
+import { Block, Button, Card, Loading, Text } from "../../../components/basic";
 import { AuthContext } from "../../../components/providers/AuthProvider";
 import { CommunityNavProps, EtcNavProps } from "../../../navigation/ParamList";
 import {
@@ -135,48 +135,35 @@ export const BoardListScreen: React.FC<EtcNavProps<"BoardList">> = ({
           item: HomepageList;
           index: number;
         }) => (
-          <TouchableOpacity
-            style={{ marginHorizontal: theme.sizes.base * 2 }}
-            onPress={() => handleClick(d.id)}
-            activeOpacity={0.6}
-          >
-            <Card shadow marginTop>
-              <Block>
-                <Text bold>{d.title}</Text>
-                <Text style={{ marginTop: theme.sizes.base / 6 }}>{`${
-                  compareDesc(
-                    parseTime(d.createAt),
-                    subMonths(new Date(), 1)
-                  ) === 1
-                    ? format(parseTime(d.createAt), "yyyy년 M월 d일")
-                    : formatDistanceToNow(parseTime(d.createAt), {
-                        locale: ko,
-                      }) + " 전"
-                } / 작성자: ${d.writtenBy}`}</Text>
-              </Block>
-            </Card>
-          </TouchableOpacity>
+          <Card shadow marginTop margin={[0, theme.sizes.base * 2]} style={{}}>
+            <TouchableOpacity onPress={() => handleClick(d.id)}>
+              <Text bold>{d.title}</Text>
+              <Text style={{ marginTop: theme.sizes.base / 6 }}>{`${
+                compareDesc(parseTime(d.createAt), subMonths(new Date(), 1)) ===
+                1
+                  ? format(parseTime(d.createAt), "yyyy년 M월 d일")
+                  : formatDistanceToNow(parseTime(d.createAt), {
+                      locale: ko,
+                    }) + " 전"
+              } / 작성자: ${d.writtenBy}`}</Text>
+            </TouchableOpacity>
+          </Card>
         )}
         ListFooterComponent={
-          <TouchableOpacity
+          <Button
             style={{
+              marginTop: theme.sizes.base,
               marginHorizontal: theme.sizes.base * 2,
               marginBottom: theme.sizes.padding,
+              paddingHorizontal: theme.sizes.base,
             }}
             onPress={loadMore}
             disabled={moreLoading}
-            activeOpacity={0.6}
+            shadow
+            loading={moreLoading}
           >
-            <Card shadow marginTop>
-              {moreLoading ? (
-                <Block center>
-                  <Loading />
-                </Block>
-              ) : (
-                <Text bold>글 더 불러오기</Text>
-              )}
-            </Card>
-          </TouchableOpacity>
+            <Text bold>글 더 불러오기</Text>
+          </Button>
         }
       />
     </Container>
