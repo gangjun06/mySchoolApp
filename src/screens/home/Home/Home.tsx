@@ -9,11 +9,15 @@ import { MealCard } from "../../../components/etc/MealCard";
 import { AuthContext } from "../../../components/providers/AuthProvider";
 import { theme } from "../../../constants";
 import {
+  GetScheduleReq,
+  GetScheduleRes,
   GetSchoolMealReq,
   GetSchoolMealRes,
+  GET_SCHEDULE,
   GET_SCHOOLMEAL,
 } from "../../../graphql/queries";
 import { SchoolMealType } from "../../../models";
+import { UserRole } from "../../../models/User";
 import { HomeNavProps, HomeParamList } from "../../../navigation/ParamList";
 
 export const HomeScreen: React.FC<HomeNavProps<"Main">> = ({ navigation }) => {
@@ -130,13 +134,67 @@ const Meal: React.FC = () => {
     </Block>
   );
 };
-
 const Schedule: React.FC = () => {
+  const [date, seDate] = useState<Date>(new Date());
+  const { user } = useContext(AuthContext);
+  const { loading, error, data } = useQuery<GetScheduleRes, GetScheduleReq>(
+    GET_SCHEDULE,
+    {
+      variables: {
+        dow: date.getDay(),
+        grade: user.detail.grade || 0,
+        class: user.detail.class || 0,
+        name:
+          user.role === UserRole.teacher ? user.name.split("", 2).join("") : "",
+      },
+      fetchPolicy: "no-cache",
+    }
+  );
+  if (loading)
+    return (
+      <Card shadow>
+        <Block flex center centerV>
+          <Loading />
+        </Block>
+      </Card>
+    );
+  if (error)
+    return (
+      <Card shadow>
+        <Block flex={false}>
+          <Text>로딩중 에러가 발생하였습니다</Text>
+        </Block>
+      </Card>
+    );
+  if (data && data.schedule.length < 1)
+    return (
+      <Card shadow>
+        <Block flex={false}>
+          <Text body>데이터가 존재하지 않습니다</Text>
+        </Block>
+      </Card>
+    );
+
   return (
     <Card shadow>
-      <Block flex={false}>
-        <Text body>시간표는 4월부터 제공될 예정입니다</Text>
-      </Block>
+      <Text>
+        {user.role === UserRole.teacher
+          ? data.schedule.map(
+              (d, index) =>
+                `${index !== 0 ? "\n" : ""}${
+                  index === 4 ? "-----------------\n" : ""
+                }${d.period}교시: ${d.subject} - ${d.classRoom} (${
+                  d.grade
+                }학년 ${d.class}반)`
+            )
+          : data.schedule.map(
+              (d, index) =>
+                `${index !== 0 ? "\n" : ""}${
+                  index === 4 ? "-----------------\n" : ""
+                }${d.period}교시: ${d.subject} - ${d.teacher} (${d.classRoom})`
+            )}
+        {}
+      </Text>
     </Card>
   );
 };

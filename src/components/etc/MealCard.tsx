@@ -15,6 +15,7 @@ export const MealCard = ({ data, mt }: { data: SchoolMeal; mt: boolean }) => (
           ? "secondary"
           : "tertiary"
       }
+      center
       padding={8}
     >
       <Ionicons

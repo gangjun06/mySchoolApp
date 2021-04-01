@@ -219,3 +219,26 @@ export const GET_HOMEPAGE_DETAIL = gql`
     }
   }
 `;
+
+export interface GetScheduleReq {
+  grade?: number;
+  class?: number;
+  dow: number;
+  name?: string;
+}
+export interface GetScheduleRes {
+  schedule: models.Schedule[];
+}
+
+export const GET_SCHEDULE = gql`
+  query($grade: Uint, $class: Uint, $dow: Uint!, $name: String) {
+    schedule(filter: { grade: $grade, class: $class, dow: $dow, name: $name }) {
+      grade
+      class
+      period
+      subject
+      teacher
+      classRoom
+    }
+  }
+`;

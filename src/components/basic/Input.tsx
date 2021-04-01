@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { StyleSheet, TextInput } from "react-native";
-import * as Icon from "@expo/vector-icons";
+import React from 'react'
+import { StyleSheet, TextInput, View } from 'react-native'
+import * as Icon from '@expo/vector-icons'
 
-import { Text } from "./Text";
-import { Block } from "./Block";
-import { Button } from "./Button";
-import { theme } from "../../constants";
+import { Text } from './Text'
+import { Block } from './Block'
+import { Button } from './Button'
+import { theme } from '../../constants'
 
-export const Input = (props: any & TextInput["props"]) => {
+export const Input = (props: any & TextInput['props']) => {
   const {
     label,
     error,
@@ -17,8 +17,8 @@ export const Input = (props: any & TextInput["props"]) => {
     onRightPress,
     style,
     ...otherProps
-  } = props;
-  const [toggleSecure, setToggleSecure] = React.useState<boolean>(false);
+  } = props
+  const [toggleSecure, setToggleSecure] = React.useState<boolean>(false)
 
   const RenderLabel = () => {
     return (
@@ -29,46 +29,44 @@ export const Input = (props: any & TextInput["props"]) => {
           </Text>
         ) : null}
       </Block>
-    );
-  };
+    )
+  }
 
   const RenderToggle = () => {
-    if (!secure) return null;
+    if (!secure) return null
 
     return (
       <Button
         style={styles.toggle}
-        onPress={() => setToggleSecure(!toggleSecure)}
-      >
+        onPress={() => setToggleSecure(!toggleSecure)}>
         {rightLabel ? (
           rightLabel
         ) : (
           <Icon.Ionicons
             color={theme.colors.gray}
             size={theme.sizes.font * 1.35}
-            name={!toggleSecure ? "md-eye" : "md-eye-off"}
+            name={!toggleSecure ? 'md-eye' : 'md-eye-off'}
           />
         )}
       </Button>
-    );
-  };
+    )
+  }
 
   const RenderRight = () => {
-    if (!rightLabel) return null;
+    if (!rightLabel) return null
 
     return (
       <Button
         style={[styles.toggle, rightStyle]}
-        onPress={() => onRightPress && onRightPress()}
-      >
+        onPress={() => onRightPress && onRightPress()}>
         {rightLabel}
       </Button>
-    );
-  };
+    )
+  }
 
-  const isSecure = toggleSecure ? false : secure;
+  const isSecure = toggleSecure ? false : secure
 
-  const inputStyles = [styles.input, error && styles.inputError, style];
+  const inputStyles = [styles.input, error && styles.inputError, style]
 
   return (
     <Block flex={false} margin={[theme.sizes.base, 0]}>
@@ -76,13 +74,13 @@ export const Input = (props: any & TextInput["props"]) => {
       <TextInput
         style={inputStyles}
         secureTextEntry={isSecure}
-        autoComplete="off"
-        autoCapitalize="none"
+        autoComplete='off'
+        autoCapitalize='none'
         autoCorrect={false}
         {...otherProps}
       />
-      <RenderToggle />
       <RenderRight />
+      <RenderToggle />
 
       {error && (
         <>
@@ -92,28 +90,28 @@ export const Input = (props: any & TextInput["props"]) => {
         </>
       )}
     </Block>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   input: {
     borderBottomColor: theme.colors.gray2,
     borderBottomWidth: StyleSheet.hairlineWidth,
     fontSize: theme.sizes.font,
-    fontWeight: "500",
+    fontWeight: '500',
     color: theme.colors.black,
     height: theme.sizes.base * 3,
-    marginVertical: 0,
+    marginVertical: 0
   },
   toggle: {
-    position: "absolute",
-    alignItems: "flex-end",
+    position: 'absolute',
+    alignItems: 'flex-end',
     width: theme.sizes.base * 2,
     height: theme.sizes.base * 2,
     top: theme.sizes.base,
-    right: 0,
+    right: 0
   },
   inputError: {
-    borderBottomColor: theme.colors.accent,
-  },
-});
+    borderBottomColor: theme.colors.accent
+  }
+})

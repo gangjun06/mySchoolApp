@@ -17,36 +17,19 @@ import { subMonths } from "date-fns/esm";
 import { CalendarCard } from "../../../components/etc/CalendarCard";
 
 export const CalendarScreen = () => {
-  const [isPickerVisible, setePickerVisible] = useState<boolean>(false);
   const [date, setDate] = useState<Date>(new Date());
 
   const dateAdd = () => setDate(addMonths(date, 1));
   const dateSub = () => setDate(subMonths(date, 1));
 
-  const showDatePicker = () => setePickerVisible(true);
-  const hideDatePicker = () => setePickerVisible(false);
-
-  const handleConfirmPicker = (date: Date) => {
-    setDate(date);
-    hideDatePicker();
-  };
-
   return (
     <Container safearea={false} padding>
-      <DateTimePickerModal
-        isVisible={isPickerVisible}
-        mode="date"
-        onConfirm={handleConfirmPicker}
-        onCancel={hideDatePicker}
-      />
       <Card shadow style={{ borderRadius: 60 }}>
         <Block flex={false} row space="between" center>
           <TouchableOpacity onPress={dateSub}>
             <Feather name="chevron-left" size={24} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={showDatePicker}>
-            <Text h3>{format(date, "yyyy년 M월")}</Text>
-          </TouchableOpacity>
+          <Text h3>{format(date, "yyyy년 M월")}</Text>
           <TouchableOpacity onPress={dateAdd}>
             <Feather name="chevron-right" size={24} />
           </TouchableOpacity>
@@ -65,6 +48,7 @@ const CalendarContent = ({ year, month }: { year: number; month: number }) => {
         year,
         month,
       },
+      fetchPolicy: "no-cache",
     }
   );
   if (loading)
