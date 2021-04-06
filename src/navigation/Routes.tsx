@@ -28,47 +28,14 @@ const Loading = () => (
   </Block>
 );
 
-const Profile: React.FC = ({ children }) => {
-  const { setUser, user, isAuth, logout } = useContext(AuthContext);
-  const { loading, error, data } = useQuery<GetMyProfileRes, {}>(
-    GET_MY_PROFILE,
-    {
-      fetchPolicy: "no-cache",
-    }
-  );
-
-  useEffect(() => {
-    if (loading || error || !data) return;
-    setUser(data.myProfile);
-  }, [data]);
-  useEffect(() => {
-    if (error && isAuth) logout();
-  }, [error]);
-
-  if (loading || user.name === "") {
-    return <Loading />;
-  }
-
-  if (error) {
-    return (
-      <Block flex middle center>
-        <Text>요청도중 에러가 발생하였습니다</Text>
-      </Block>
-    );
-  }
-  return <>{children}</>;
-};
-
 export const Routes: React.FC<RoutesProps> = ({}) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const { user, login, isAuth } = useContext(AuthContext);
+  const { login, isAuth, loading: authLoading } = useContext(AuthContext);
 
   useEffect(() => {
     AsyncStorage.getItem("user")
       .then(async (userToken) => {
-        if (userToken) {
-          await login(userToken);
-        }
+        if (userToken) await login(userToken);
         setLoading(false);
       })
       .catch((e) => {
@@ -77,7 +44,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
       });
   }, []);
 
-  if (loading) {
+  if (loading || authLoading) {
     return <Loading />;
   } else {
     return (
@@ -91,9 +58,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
           }}
         >
           {isAuth ? (
-            <Profile>
-              <AppTabs />
-            </Profile>
+            <AppTabs />
           ) : (
             <Stack.Navigator
               initialRouteName="Splash"

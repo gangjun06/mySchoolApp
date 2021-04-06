@@ -92,6 +92,15 @@ export const Container: React.FC<ContainerProps> = ({
       </KeyboardAwareScrollView>
     );
   }
+  if (scroll && safearea) {
+    return (
+      <SafeAreaView style={style}>
+        <ScrollView>
+          <Children />
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
   if (scroll) {
     return (
       <ScrollView style={style}>
@@ -99,17 +108,7 @@ export const Container: React.FC<ContainerProps> = ({
       </ScrollView>
     );
   }
-  if (keyboardAvoid) {
-    return (
-      <KeyboardAvoidingView
-        style={style}
-        keyboardVerticalOffset={Platform.OS == "ios" ? 10 : 0}
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-      >
-        <Children />
-      </KeyboardAvoidingView>
-    );
-  }
+
   if (safearea) {
     return (
       <SafeAreaView style={style}>
