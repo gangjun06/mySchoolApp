@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FlatList,
   View,
@@ -6,6 +6,7 @@ import {
   Dimensions,
   Animated,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { Block, Text, Button } from "../../components/basic";
 import { theme } from "../../constants";

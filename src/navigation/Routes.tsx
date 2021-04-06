@@ -44,7 +44,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
       });
   }, []);
 
-  if (loading || authLoading) {
+  if (loading) {
     return <Loading />;
   } else {
     return (

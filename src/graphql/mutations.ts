@@ -164,3 +164,13 @@ export const CREATE_POST = gql`
     )
   }
 `;
+
+export interface SetNotiReq {
+  id: string;
+}
+export interface SetNotiRes {}
+export const SET_NOTI_ID = gql`
+  mutation SetNoti($id: String!) {
+    setNotificationID(input: { id: $id })
+  }
+`;

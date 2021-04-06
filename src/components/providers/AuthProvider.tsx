@@ -3,8 +3,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User, UserRole, UserStatus } from "../../models/User";
 import { Block, Loading } from "../basic";
 import { GetMyProfileRes, GET_MY_PROFILE } from "../../graphql/queries";
-import { useLazyQuery, useQuery } from "react-apollo";
+import { useLazyQuery, useMutation, useQuery } from "react-apollo";
 import { apolloClient } from "../../graphql/client";
+import * as Notifications from "expo-notifications";
+import { SetNotiReq, SetNotiRes, SET_NOTI_ID } from "../../graphql/mutations";
 
 export const AuthContext = React.createContext<{
   user: User;
@@ -32,6 +34,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>({ name: "" });
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [updateNoti] = useMutation<SetNotiRes, SetNotiReq>(SET_NOTI_ID);
+
   return (
     <AuthContext.Provider
       value={{
@@ -54,6 +58,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           } catch (e) {
             console.error(e);
           }
+          const notiToken = (await Notifications.getExpoPushTokenAsync()).data;
+          updateNoti({
+            variables: {
+              id: notiToken,
+            },
+          }).catch((e) => {
+            console.error(e);
+          });
+
           setLoading(false);
         },
         logout: () => {
